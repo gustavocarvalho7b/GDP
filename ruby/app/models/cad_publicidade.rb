@@ -1,0 +1,2 @@
+class CadPublicidade < ApplicationRecord
+end

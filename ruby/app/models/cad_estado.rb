@@ -1,0 +1,2 @@
+class CadEstado < ApplicationRecord
+end
