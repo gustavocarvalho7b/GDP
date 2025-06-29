@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_28_214256) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_28_235818) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -49,6 +49,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_28_214256) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "cad_publicidade_estados", force: :cascade do |t|
+    t.bigint "id_publicidade", null: false
+    t.bigint "id_estado", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["id_estado"], name: "index_cad_publicidade_estados_on_id_estado"
+    t.index ["id_publicidade"], name: "index_cad_publicidade_estados_on_id_publicidade"
+  end
+
   create_table "cad_publicidades", force: :cascade do |t|
     t.string "titulo"
     t.string "descricao"
@@ -63,4 +72,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_28_214256) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "cad_publicidade_estados", "cad_estados", column: "id_estado"
+  add_foreign_key "cad_publicidade_estados", "cad_publicidades", column: "id_publicidade"
 end

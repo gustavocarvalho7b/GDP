@@ -14,15 +14,24 @@ class CadPublicidadeEstadosController < ApplicationController
   end
 
   # POST /cad_publicidade_estados
-  def create
-    @cad_publicidade_estado = CadPublicidadeEstado.new(cad_publicidade_estado_params)
+def create
+  @cad_publicidade = CadPublicidade.new(cad_publicidade_params)
 
-    if @cad_publicidade_estado.save
-      render json: @cad_publicidade_estado, status: :created, location: @cad_publicidade_estado
-    else
-      render json: @cad_publicidade_estado.errors, status: :unprocessable_entity
+  if @cad_publicidade.save
+    if params[:cad_publicidade][:id_publicidade_estado].present?
+      params[:cad_publicidade][:id_publicidade_estado].each do |estado_id|
+        CadPublicidadeEstado.create!(
+          id_publicidade: @cad_publicidade.id,
+          id_estado: estado_id
+        )
+      end
     end
+
+    render json: @cad_publicidade, status: :created
+  else
+    render json: @cad_publicidade.errors, status: :unprocessable_entity
   end
+end
 
   # PATCH/PUT /cad_publicidade_estados/1
   def update
