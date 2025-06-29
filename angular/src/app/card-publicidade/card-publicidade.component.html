@@ -23,11 +23,15 @@
     </div>
     <div class="detalhes">
       <div>
-        <span class="estado">São Paulo</span>
+        <span class="estado" *ngFor="let estado of publicidade.cad_estados">{{
+          estado.descricao
+        }}</span>
       </div>
       <div class="date">
         <i class="pi pi-calendar"></i>
-        <span>Ativo até <b>12/12/1212</b></span>
+        <span
+          >Ativo até <b>{{ publicidade.dt_fim }}</b></span
+        >
       </div>
     </div>
   </div>

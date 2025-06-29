@@ -3,16 +3,21 @@ class CadPublicidadesController < ApplicationController
 
   # GET /cad_publicidades
   def index
-    @cad_publicidades = CadPublicidade.all
-    render json: @cad_publicidades
+    @cad_publicidades = CadPublicidade.includes(:cad_estados).all
+  render json: @cad_publicidades.as_json(
+    include: {
+       cad_estados: {
+        only: [ :id, :descricao, :sigla ]
+      }
+    },
+      except: [ :created_at, :updated_at ]
+    )
   end
 
-  # GET /cad_publicidades/1
   def show
     render json: @cad_publicidade
   end
 
-  # POST /cad_publicidades
 def create
   @cad_publicidade = CadPublicidade.new(cad_publicidade_params)
 

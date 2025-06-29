@@ -8,5 +8,5 @@ export interface Publicidade {
   titulo_botao_link: string;
   dt_inicio: Date;
   dt_fim: Date;
-  estados?: Estados[];
+  cad_estados: Estados[];
 }
