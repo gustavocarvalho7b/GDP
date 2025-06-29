@@ -10,9 +10,10 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { CardPublicidadeComponent } from './card-publicidade/card-publicidade.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeBarComponent, CardPublicidadeComponent],
+  declarations: [AppComponent, HomeBarComponent, CardPublicidadeComponent, HomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
