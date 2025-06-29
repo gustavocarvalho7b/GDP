@@ -4,7 +4,6 @@ class CreateCadPublicidades < ActiveRecord::Migration[8.0]
       t.string :titulo
       t.string :descricao
       t.string :botao_link
-      t.integer :id_publicidade_estado
       t.string :titulo_botao_link
       t.date :dt_inicio
       t.date :dt_fim

@@ -13,10 +13,8 @@ class CadPublicidadeEstadosController < ApplicationController
     render json: @cad_publicidade_estado
   end
 
-  # POST /cad_publicidade_estados
+# POST /cad_publicidade_estados
 def create
-  @cad_publicidade = CadPublicidade.new(cad_publicidade_params)
-
   if @cad_publicidade.save
     if params[:cad_publicidade][:id_publicidade_estado].present?
       params[:cad_publicidade][:id_publicidade_estado].each do |estado_id|
@@ -55,6 +53,6 @@ end
 
     # Only allow a list of trusted parameters through.
     def cad_publicidade_estado_params
-      params.expect(cad_publicidade_estado: [ :id_publicidade_id, :id_estado_id ])
+      params.expect(cad_publicidade_estado: [ :id_publicidade, :id_estado_id ])
     end
 end

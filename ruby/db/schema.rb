@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_28_235818) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_28_214343) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -54,8 +54,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_28_235818) do
     t.bigint "id_estado", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["id_estado"], name: "index_cad_publicidade_estados_on_id_estado"
-    t.index ["id_publicidade"], name: "index_cad_publicidade_estados_on_id_publicidade"
   end
 
   create_table "cad_publicidades", force: :cascade do |t|

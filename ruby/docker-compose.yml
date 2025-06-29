@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: ruby
+      POSTGRES_PASSWORD: pinkola
+      POSTGRES_DB: ruby_development
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - storage_data:/app/storage
+    ports:
+      - "5433:5432"
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+      - storage_data:/app/storage #storage
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_HOST: db
+      DATABASE_USERNAME: ruby
+      DATABASE_PASSWORD: pinkola
+      DATABASE_PORT: 5432
+    depends_on:
+      - db
+
+volumes:
+  db_data:
+  storage_data:
