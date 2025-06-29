@@ -11,9 +11,15 @@ import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { CardPublicidadeComponent } from './card-publicidade/card-publicidade.component';
 import { HomeComponent } from './home/home.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [AppComponent, HomeBarComponent, CardPublicidadeComponent, HomeComponent],
+  declarations: [
+    AppComponent,
+    HomeBarComponent,
+    CardPublicidadeComponent,
+    HomeComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -22,6 +28,7 @@ import { HomeComponent } from './home/home.component';
     IconFieldModule,
     InputIconModule,
     InputTextModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
