@@ -8,4 +8,20 @@ import { Publicidade } from '../models/publicidade';
 })
 export class CardPublicidadeComponent {
   @Input() publicidade!: Publicidade;
+  isAtual(): boolean {
+    if (!this.publicidade.dt_inicio || !this.publicidade.dt_fim) return false;
+
+    // Criar objeto com horário de Brasília (UTC-3)
+    const now = new Date();
+    const dataAtual = new Date(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate()
+    );
+
+    const inicio = new Date(this.publicidade.dt_inicio);
+    const fim = new Date(this.publicidade.dt_fim);
+
+    return dataAtual >= inicio && dataAtual <= fim;
+  }
 }

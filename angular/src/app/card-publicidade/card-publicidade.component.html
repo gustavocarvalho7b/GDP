@@ -15,7 +15,7 @@
         </span>
       </div>
       <div class="direita">
-        <span class="tag-atual">Publicidade atual</span>
+        <span class="tag-atual" *ngIf="isAtual()">Publicidade atual</span>
         <button class="button">
           <i class="pi pi-ellipsis-v"></i>
         </button>
