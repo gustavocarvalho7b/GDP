@@ -1,0 +1,40 @@
+.gdp {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 64px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+    color: #495057;
+}
+
+.header {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header h1 {
+  line-height: 1.2; // ou ajuste conforme a fonte
+  margin: 0;
+}
+
+.input {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+::ng-deep .drop .p-dropdown {
+  width: 415px !important;
+}
+
+.search-container {
+  flex: 1;
+}
+
+.search-input {
+  width: 100%;
+}
