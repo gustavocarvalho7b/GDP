@@ -20,7 +20,9 @@ production:
     <<: *default
     database: ruby_production
     username: ruby
-    password: <%= ENV["RUBY_DATABASE_PASSWORD"] %>
+    password: <%= ENV["RUBY_DATABASE_PASSWORD"] || 'pinkola' %>
+    host: <%= ENV['DATABASE_HOST'] || 'db' %>   # <-- importante
+    port: <%= ENV['DATABASE_PORT'] || 5432 %>   # <-- importante
   cache:
     <<: *primary_production
     database: ruby_production_cache
