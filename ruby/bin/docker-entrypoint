@@ -1,23 +1,27 @@
 #!/bin/bash
 set -e
 
-# Remove o PID antigo para evitar erro no servidor
 rm -f /rails/tmp/pids/server.pid
 
-# Se o comando for iniciar o servidor Rails
-if [ "$1" == "./bin/rails" ] && [ "$2" == "server" ]; then
+echo "Aguardando banco de dados ficar disponível..."
+until pg_isready -h "$DATABASE_HOST" -p "$DATABASE_PORT" > /dev/null 2>&1; do
+  sleep 1
+done
+echo "Banco de dados disponível!"
 
-  # Espera o banco de dados ficar disponível
-  until pg_isready -h "$DATABASE_HOST" -p "$DATABASE_PORT" > /dev/null 2>&1; do
-    echo "Aguardando banco de dados ficar disponível..."
-    sleep 1
-  done
-
-  echo "Banco de dados disponível!"
-
-  # Executa db:prepare (create + migrate)
+if [ "$RAILS_ENV" = "production" ]; then
+  echo "Verificando se banco de produção já existe..."
+  if ! ./bin/rails db:version > /dev/null 2>&1; then
+    echo "Banco ainda não existe. Executando db:setup..."
+    ./bin/rails db:setup
+  else
+    echo "Banco já existente. Executando db:migrate..."
+    ./bin/rails db:migrate
+    ./bin/rails db:seed
+  fi
+else
+  echo "Ambiente de desenvolvimento. Executando db:prepare..."
   ./bin/rails db:prepare
 fi
 
-# Executa o comando do container
 exec "$@"

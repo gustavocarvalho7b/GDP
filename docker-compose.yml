@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_USER: ruby
       POSTGRES_PASSWORD: pinkola
-      POSTGRES_DB: ruby_development
+      POSTGRES_DB: ruby_production
     volumes:
       - db_data:/var/lib/postgresql/data
     ports:
@@ -17,6 +17,7 @@ services:
     build:
       context: ./ruby
       dockerfile: Dockerfile
+    image: rails-backend
     container_name: rails-backend
     working_dir: /rails
     volumes:
@@ -29,6 +30,9 @@ services:
       RAILS_ENV: production
       RAILS_MASTER_KEY: 938c3ae34a5596256bd01f829dd3cd30
       RUBY_DATABASE_PASSWORD: pinkola
+      DATABASE_HOST: postgres-db # <- adicionado para compatibilidade com database.yml
+      DATABASE_PORT: 5432 # <- adicionado para compatibilidade com database.yml
+      DATABASE_USERNAME: ruby
     depends_on:
       - db
 

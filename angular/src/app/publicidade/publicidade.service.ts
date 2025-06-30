@@ -19,7 +19,7 @@ export class PublicidadeService {
 }
 
 export class EstadoService {
-  private url: string = 'api/cad_estados';
+  private url: string = '/api/cad_estados';
 
   constructor(private http: HttpClient) {}
 
@@ -29,7 +29,7 @@ export class EstadoService {
 }
 
 export class PublicidadeEstadoService {
-  private url = 'api/publicidade_estado';
+  private url = '/api/publicidade_estado';
 
   constructor(private http: HttpClient) {}
 

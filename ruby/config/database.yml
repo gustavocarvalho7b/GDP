@@ -14,24 +14,15 @@ development:
 test:
   <<: *default
   database: ruby_test
+  username: <%= ENV['DATABASE_USERNAME'] || 'ruby' %>
+  password: <%= ENV['DATABASE_PASSWORD'] || 'pinkola' %>
+  host: <%= ENV['DATABASE_HOST'] || 'localhost' %>
+  port: <%= ENV['DATABASE_PORT'] || 5432 %>
 
 production:
-  primary: &primary_production
-    <<: *default
-    database: ruby_production
-    username: ruby
-    password: <%= ENV["RUBY_DATABASE_PASSWORD"] || 'pinkola' %>
-    host: <%= ENV['DATABASE_HOST'] || 'db' %>   # <-- importante
-    port: <%= ENV['DATABASE_PORT'] || 5432 %>   # <-- importante
-  cache:
-    <<: *primary_production
-    database: ruby_production_cache
-    migrations_paths: db/cache_migrate
-  queue:
-    <<: *primary_production
-    database: ruby_production_queue
-    migrations_paths: db/queue_migrate
-  cable:
-    <<: *primary_production
-    database: ruby_production_cable
-    migrations_paths: db/cable_migrate
+  <<: *default
+  database: ruby_production
+  username: ruby
+  password: <%= ENV["RUBY_DATABASE_PASSWORD"] || 'pinkola' %>
+  host: <%= ENV['DATABASE_HOST'] || 'db' %>
+  port: <%= ENV['DATABASE_PORT'] || 5432 %>
