@@ -50,4 +50,3 @@ cache:
   password: <%= ENV["RUBY_DATABASE_PASSWORD"] || 'pinkola' %>
   host: <%= ENV['DATABASE_HOST'] || 'db' %>
   port: <%= ENV['DATABASE_PORT'] || 5432 %>
-

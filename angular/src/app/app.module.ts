@@ -12,6 +12,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CardPublicidadeComponent } from './card-publicidade/card-publicidade.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ModalNovaPublicidadeComponent } from './modal-nova-publicidade/modal-nova-publicidade.component';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { CalendarModule } from 'primeng/calendar';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
   declarations: [
@@ -19,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
     HomeBarComponent,
     CardPublicidadeComponent,
     HomeComponent,
+    ModalNovaPublicidadeComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,6 +34,10 @@ import { HttpClientModule } from '@angular/common/http';
     InputIconModule,
     InputTextModule,
     HttpClientModule,
+    MultiSelectModule,
+    InputTextModule,
+    CalendarModule,
+    FileUploadModule
   ],
   providers: [],
   bootstrap: [AppComponent],
