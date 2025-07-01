@@ -26,3 +26,28 @@ production:
   password: <%= ENV["RUBY_DATABASE_PASSWORD"] || 'pinkola' %>
   host: <%= ENV['DATABASE_HOST'] || 'db' %>
   port: <%= ENV['DATABASE_PORT'] || 5432 %>
+
+cable:
+  <<: *default
+  database: ruby_cable
+  username: ruby
+  password: <%= ENV["RUBY_DATABASE_PASSWORD"] || 'pinkola' %>
+  host: <%= ENV['DATABASE_HOST'] || 'db' %>
+  port: <%= ENV['DATABASE_PORT'] || 5432 %>
+
+queue:
+  <<: *default
+  database: ruby_queue
+  username: ruby
+  password: <%= ENV["RUBY_DATABASE_PASSWORD"] || 'pinkola' %>
+  host: <%= ENV['DATABASE_HOST'] || 'db' %>
+  port: <%= ENV['DATABASE_PORT'] || 5432 %>
+
+cache:
+  <<: *default
+  database: ruby_cache
+  username: ruby
+  password: <%= ENV["RUBY_DATABASE_PASSWORD"] || 'pinkola' %>
+  host: <%= ENV['DATABASE_HOST'] || 'db' %>
+  port: <%= ENV['DATABASE_PORT'] || 5432 %>
+
