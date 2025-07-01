@@ -1,75 +1,90 @@
 <form>
+  <div class="overlay">
     <div class="modal">
-        <div class="container">
-            <div class="header">
-                <div class="texto">
-                    <span><b>Nova publicidade</b></span>
-                    <button class="fechar">
-                        <i class="pi pi-times"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="corpo">
-                <div class="estadosContemplados">
-                    <label for="estadosDrop">Estados contemplados *</label>
-                    <br>
-                    <p-multiSelect  id="estadosDrop"
-                    [options]="estados" 
-                    optionLabel="estado" />
-                </div>
-                <div class="titulo">
-                    <label for="textTitulo">Titulo *</label>
-                    <br>
-                    <input type="text" pInputText id="textTitulo"/>
-                </div>
-                <div class="descricao">
-                    <label for="textDescricao">Descrição *</label>
-                    <br>
-                    <input type="text" pInputText 
-                        rows="5"
-                        cols="30" 
-                        pInputTextarea
-                        autoResize="true"
-                        id="textDescricao"/>
-                </div>        
-                <div class="meio">
-                    <div class="botaoText">
-                        <label for="textBotao">Título do botão *</label>
-                        <input type="text" pInputText id="textBotao"/>
-                    </div>
-                    <div class="botaoLink">                       
-                        <label for>Link do botão *</label>
-                        <input type="text" pInputText id="linkBotao"/>
-                    </div>
-                </div>
-                <div class="datas">
-                    <div class="dataPublicacao">
-                        <label for="publicacaoData">Data de publicação *</label>
-                        <p-calendar                             
-                            [iconDisplay]="'input'" 
-                            [showIcon]="true" 
-                            inputId="icondisplay" 
-                            id =publicacaoData/>
-                    </div>
-                    <div class="dataFim">
-                        <label for="fimData">Data final da publicação *</label>
-                        <p-calendar                             
-                            [iconDisplay]="'input'" 
-                            [showIcon]="true" 
-                            inputId="icondisplay" 
-                            id =fimData/>
-                    </div>
-                </div>
-                <div class="imagem">
-                    <span>IMAGEM DA PUBLICIDADE</span>
-                    <div class="selecionarImagem">                                     
-                    </div>
-                </div>
-                <div class="final">
-                    <p-button label="Cancelar" icon="pi pi-times" id="cancelar"/>
-                    <p-button label="Confirmar" icon="pi pi-check" />
-                </div>
-            </div>
+      <div class="container">
+        <div class="header">
+          <div class="texto">
+            <span><b>Nova publicidade</b></span>
+            <button class="fechar">
+              <i class="pi pi-times" (click)="fechar()"></i>
+            </button>
+          </div>
         </div>
+        <div class="corpo">
+          <div class="estadosContemplados">
+            <label for="estadosDrop">Estados contemplados *</label>
+            <br />
+            <p-multiSelect
+              id="estadosDrop"
+              [options]="estados"
+              optionLabel="estado"
+            />
+          </div>
+          <div class="titulo">
+            <label for="textTitulo">Titulo *</label>
+            <br />
+            <input type="text" pInputText id="textTitulo" />
+          </div>
+          <div class="descricao">
+            <label for="textDescricao">Descrição *</label>
+            <br />
+            <input
+              type="text"
+              pInputText
+              rows="5"
+              cols="30"
+              pInputTextarea
+              autoResize="true"
+              id="textDescricao"
+            />
+          </div>
+          <div class="meio">
+            <div class="botaoText">
+              <label for="textBotao">Título do botão *</label>
+              <input type="text" pInputText id="textBotao" />
+            </div>
+            <div class="botaoLink">
+              <label for>Link do botão *</label>
+              <input type="text" pInputText id="linkBotao" />
+            </div>
+          </div>
+          <div class="datas">
+            <div class="dataPublicacao">
+              <label for="publicacaoData">Data de publicação *</label>
+              <p-calendar
+                [iconDisplay]="'input'"
+                [showIcon]="true"
+                inputId="icondisplay"
+                id="publicacaoData"
+              />
+            </div>
+            <div class="dataFim">
+              <label for="fimData">Data final da publicação *</label>
+              <p-calendar
+                [iconDisplay]="'input'"
+                [showIcon]="true"
+                inputId="icondisplay"
+                id="fimData"
+              />
+            </div>
+          </div>
+          <div class="imagem">
+            <span>IMAGEM DA PUBLICIDADE</span>
+            <div class="selecionarImagem"></div>
+          </div>
+          <div class="finalContainer">
+            <div class="final">
+              <p-button
+                label="Cancelar"
+                icon="pi pi-times"
+                id="cancelar"
+                (click)="fechar()"
+              />
+              <p-button label="Confirmar" icon="pi pi-check" />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </form>

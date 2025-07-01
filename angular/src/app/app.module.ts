@@ -16,6 +16,8 @@ import { ModalNovaPublicidadeComponent } from './modal-nova-publicidade/modal-no
 import { MultiSelectModule } from 'primeng/multiselect';
 import { CalendarModule } from 'primeng/calendar';
 import { FileUploadModule } from 'primeng/fileupload';
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { FileUploadModule } from 'primeng/fileupload';
     MultiSelectModule,
     InputTextModule,
     CalendarModule,
-    FileUploadModule
+    FileUploadModule,
+    FormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

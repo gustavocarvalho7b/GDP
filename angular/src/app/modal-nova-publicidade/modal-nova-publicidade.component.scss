@@ -1,3 +1,16 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.1); // escurece fundo
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; // garantir que fique acima
+}
+
 .modal {
     background-color: var(--surface-overlay);
     border: 1px solid var(--surface-200);
@@ -97,14 +110,29 @@
    flex-direction: column;
 }
 
+.imagem {
+    padding-bottom:  24px;
+}
+
+.finalContainer {
+    border-top: 1px solid #ccc;
+    margin-left: -24px;
+    margin-right: -24px;
+}
+
 .final {
+    margin-right: 24px;
     padding: 24px 0px;
     display: flex;
     justify-content: end;
-    border-top: 1px solid #ccc;
 }
 
 ::ng-deep .final #cancelar {
     padding-right: 20px;
-    color: white;
+}
+
+::ng-deep #cancelar button {
+    color: #495057;
+    background-color: white;
+    border-color: #495057;
 }

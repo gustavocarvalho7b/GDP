@@ -5,24 +5,35 @@
 <div class="gdp">
   <div class="header">
     <h1>Gerenciamento de Publicidade</h1>
-    <p-button label="Nova publicidade" icon="pi pi-plus-circle"></p-button>
+    <p-button
+      label="Nova publicidade"
+      icon="pi pi-plus-circle"
+      (click)="abrirModal()"
+    ></p-button>
   </div>
   <div class="input">
     <p-dropdown
-      optionLabel="name"
-      placeholder="Visualizar todos os Estados"
-      class="drop"
+      [options]="todosEstados"
+      [(ngModel)]="estadoSelecionado"
+      optionLabel="descricao"
+      (onClick)="abrirDropdown()"
+      (onChange)="selecionarEstado()"
+      placeholder="Selecione um estado"
     />
     <p-iconField iconPosition="right" class="search-container">
       <p-inputIcon styleClass="pi pi-search" />
       <input type="text" pInputText class="search-input" />
     </p-iconField>
   </div>
-  <app-modal-nova-publicidade></app-modal-nova-publicidade>
   <div *ngFor="let pub of publicidades">
     <app-card-publicidade
       [publicidade]="pub"
       class="card"
     ></app-card-publicidade>
+    <app-modal-nova-publicidade
+      [visivel]="modalVisivel"
+      (aoFechar)="fecharModal()"
+      *ngIf="modalVisivel"
+    ></app-modal-nova-publicidade>
   </div>
 </div>
