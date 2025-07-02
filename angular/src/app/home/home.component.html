@@ -22,7 +22,13 @@
     />
     <p-iconField iconPosition="right" class="search-container">
       <p-inputIcon styleClass="pi pi-search" />
-      <input type="text" pInputText class="search-input" />
+      <input
+        type="text"
+        pInputText
+        class="search-input"
+        [(ngModel)]="buscarPublicidade"
+        (input)="buscarPublicidades()"
+      />
     </p-iconField>
   </div>
   <div *ngFor="let pub of publicidades">

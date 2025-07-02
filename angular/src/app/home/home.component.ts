@@ -3,6 +3,7 @@ import { Publicidade } from '../models/publicidade';
 import { EstadoService } from '../services/estado.service';
 import { Estados } from '../models/estados';
 import { PublicidadeService } from '../services/publicidade.service';
+import { RemoverCaracteresEspeciaisPipe } from '../pipes/remover-caracteres-especiais.pipe';
 
 @Component({
   selector: 'app-home',
@@ -15,10 +16,12 @@ export class HomeComponent {
   todosEstados: Estados[] = [];
   estadoSelecionado?: Estados;
   todasPublicidades: Publicidade[] = [];
+  buscarPublicidade: string = '';
 
   constructor(
     private publicidadeService: PublicidadeService,
-    private estadoService: EstadoService
+    private estadoService: EstadoService,
+    private removerPipe: RemoverCaracteresEspeciaisPipe
   ) {}
 
   ngOnInit() {
@@ -62,5 +65,14 @@ export class HomeComponent {
     this.publicidades = this.todasPublicidades.filter((pub) =>
       pub.cad_estados.some((estado) => estado.id === idEstado)
     );
+  }
+
+  buscarPublicidades() {
+    const termo = this.removerPipe.transform(this.buscarPublicidade);
+    this.publicidades = this.todasPublicidades.filter((pub) => {
+      const titulo = this.removerPipe.transform(pub.titulo);
+      const descricao = this.removerPipe.transform(pub.descricao);
+      return titulo.includes(termo) || descricao.includes(termo);
+    });
   }
 }

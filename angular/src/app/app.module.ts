@@ -18,6 +18,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { FileUploadModule } from 'primeng/fileupload';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RemoverCaracteresEspeciaisPipe } from './pipes/remover-caracteres-especiais.pipe';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [RemoverCaracteresEspeciaisPipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
