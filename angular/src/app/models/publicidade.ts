@@ -1,3 +1,4 @@
+import { Binary } from '@angular/compiler';
 import { Estados } from './estados';
 
 export interface Publicidade {
@@ -9,4 +10,5 @@ export interface Publicidade {
   dt_inicio: Date;
   dt_fim: Date;
   cad_estados: Estados[];
+  imagem_base64: string;
 }
