@@ -47,6 +47,7 @@
 .fechar {
     border: 0;
     background-color: transparent;
+    cursor: pointer;
 }
 
 .estadosContemplados {
@@ -61,7 +62,7 @@
 }
 
 .descricao {
-    padding: 24px 0px;
+    padding: 24px  0px;
 }
 
 ::ng-deep .descricao #textDescricao {
@@ -100,14 +101,16 @@
     width: 366px;
     flex: 1;
     display: flex;
-   flex-direction: column;
+    flex-direction: column;
+
 }
 
 ::ng-deep .dataFim #fimData {
     width: 366px;
     flex: 1;
     display: flex;
-   flex-direction: column;
+    flex-direction: column;
+
 }
 
 .imagem {
@@ -135,4 +138,8 @@
     color: #495057;
     background-color: white;
     border-color: #495057;
+}
+
+::ng-deep .p-calendar input {
+  cursor: pointer;
 }

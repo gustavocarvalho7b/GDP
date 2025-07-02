@@ -28,15 +28,13 @@
           <div class="descricao">
             <label for="textDescricao">Descrição *</label>
             <br />
-            <input
-              type="text"
-              pInputText
+            <textarea 
               rows="5"
-              cols="30"
-              pInputTextarea
-              autoResize="true"
-              id="textDescricao"
-            />
+              cols="30" 
+              pInputTextarea 
+              [autoResize]="true"
+              id="textDescricao">
+            </textarea>
           </div>
           <div class="meio">
             <div class="botaoText">
@@ -61,11 +59,11 @@
             <div class="dataFim">
               <label for="fimData">Data final da publicação *</label>
               <p-calendar
-                [iconDisplay]="'input'"
-                [showIcon]="true"
-                inputId="icondisplay"
-                id="fimData"
-              />
+              [iconDisplay]="'input'"
+              [showIcon]="true"
+              inputId="icondisplay"
+              id="fimData"
+            />
             </div>
           </div>
           <div class="imagem">

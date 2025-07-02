@@ -19,6 +19,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RemoverCaracteresEspeciaisPipe } from './pipes/remover-caracteres-especiais.pipe';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { RemoverCaracteresEspeciaisPipe } from './pipes/remover-caracteres-espec
     FileUploadModule,
     FormsModule,
     BrowserAnimationsModule,
+    InputTextareaModule
   ],
   providers: [RemoverCaracteresEspeciaisPipe],
   bootstrap: [AppComponent],
