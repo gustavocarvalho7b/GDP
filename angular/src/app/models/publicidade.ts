@@ -1,7 +1,7 @@
 import { Estados } from './estados';
 
 export interface Publicidade {
-  id: number;
+  id?: number;
   titulo: string;
   descricao: string;
   botao_link: string;

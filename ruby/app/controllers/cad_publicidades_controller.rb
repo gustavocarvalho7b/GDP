@@ -12,7 +12,7 @@ class CadPublicidadesController < ApplicationController
         }
       },
       methods: [ :imagem_base64 ],
-      except: [ :created_at, :updated_at, :imagem]
+      except: [ :created_at, :updated_at, :imagem ]
     )
   end
 
@@ -25,14 +25,9 @@ class CadPublicidadesController < ApplicationController
   def create
     @cad_publicidade = CadPublicidade.new(cad_publicidade_params)
 
-    if params[:imagem].present?
-      @cad_publicidade.imagem = params[:imagem].read
-    elsif params[:cad_publicidade][:imagem_base64].present?
-      @cad_publicidade.imagem_base64 = params[:cad_publicidade][:imagem_base64]
-    end
-
-
+    # Nenhum decode manual aqui — o model faz isso via imagem_base64=
     if @cad_publicidade.save
+      # associa estados
       if params[:cad_publicidade][:id_publicidade_estado].present?
         params[:cad_publicidade][:id_publicidade_estado].each do |estado_id|
           CadPublicidadeEstado.create!(
@@ -42,7 +37,7 @@ class CadPublicidadesController < ApplicationController
         end
       end
 
-      render json: @cad_publicidade.as_json(methods: [ :imagem_base64 ], except: [ :imagem ]), status: :created, location: @cad_publicidade
+      render json: @cad_publicidade.as_json(methods: [ :imagem_base64 ], except: [ :imagem ]), status: :created
     else
       render json: @cad_publicidade.errors, status: :unprocessable_entity
     end
@@ -50,23 +45,17 @@ class CadPublicidadesController < ApplicationController
 
   # PATCH/PUT /cad_publicidades/1
   def update
-    if params[:imagem].present?
-      @cad_publicidade.imagem = params[:imagem].read
-    elsif params[:cad_publicidade][:imagem_base64].present?
-      @cad_publicidade.imagem_base64 = params[:cad_publicidade][:imagem_base64]
-    end
-
     if @cad_publicidade.update(cad_publicidade_params)
-      render json: @cad_publicidade.as_json(methods: [:imagem_base64], except: [:imagem])
+      render json: @cad_publicidade.as_json(methods: [ :imagem_base64 ], except: [ :imagem ])
     else
       render json: @cad_publicidade.errors, status: :unprocessable_entity
     end
   end
 
-  # DELETE /cad_publicidades/1
-  def destroy
-    @cad_publicidade.destroy!
-  end
+    # DELETE /cad_publicidades/1
+    def destroy
+      @cad_publicidade.destroy!
+    end
 
   private
 
@@ -83,7 +72,7 @@ class CadPublicidadesController < ApplicationController
   def cad_publicidade_params
     params.require(:cad_publicidade).permit(
       :titulo, :descricao, :botao_link,
-      :titulo_botao_link, :dt_inicio, :dt_fim, :imagem, :imagem_base64,
+      :titulo_botao_link, :dt_inicio, :dt_fim, :imagem_base64,
       id_publicidade_estado: []
     )
   end

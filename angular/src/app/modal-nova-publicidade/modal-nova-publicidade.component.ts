@@ -19,7 +19,6 @@ export class ModalNovaPublicidadeComponent {
   estados: [] = [];
 
   publicidade: Publicidade = {
-    id: 0,
     titulo: '',
     descricao: '',
     botao_link: '',
@@ -29,7 +28,7 @@ export class ModalNovaPublicidadeComponent {
     imagem_base64: '', // base64
     cad_estados: [],
   };
-  
+
   constructor(
     private primengConfig: PrimeNGConfig,
     private publicidadeService: PublicidadeService,
@@ -131,15 +130,15 @@ export class ModalNovaPublicidadeComponent {
     this.publicidade.imagem_base64 = '';
   }
 
-  
-
   salvarPublicidade() {
     const { id, ...payload } = this.publicidade;
-    
-    this.publicidadeService.criarPublicidade(payload).subscribe({
+
+    const wrappedPayload = { cad_publicidade: payload };
+
+    this.publicidadeService.criarPublicidade(wrappedPayload).subscribe({
       next: (res: any) => {
         console.log('Publicidade salva com sucesso!', res);
-        this.fechar(); // ou this.fechar2() se estiver usando controle interno
+        this.fechar();
       },
       error: (err: any) => {
         console.error('Erro ao salvar publicidade:', err);

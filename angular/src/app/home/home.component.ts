@@ -14,7 +14,7 @@ export class HomeComponent {
   publicidades: Publicidade[] = [];
   modalVisivel: boolean = false;
   todosEstados: Estados[] = [];
-  estadoSelecionado?: Estados;
+  estadoSelecionado: any = null;
   todasPublicidades: Publicidade[] = [];
   buscarPublicidade: string = '';
 
@@ -49,24 +49,28 @@ export class HomeComponent {
   abrirDropdown() {
     if (this.todosEstados.length === 0) {
       this.estadoService.selecionar().subscribe((estados) => {
-        this.todosEstados = estados;
+        this.todosEstados = [
+          { id: 0, descricao: 'Todos os estados', sigla: '' },
+          ...estados,
+        ];
       });
     }
   }
 
   selecionarEstado() {
-    if (!this.estadoSelecionado) {
+    if (!this.estadoSelecionado) return;
+
+    if (this.estadoSelecionado.id === 0) {
+      // Todos os estados
       this.publicidades = this.todasPublicidades;
-      return;
+    } else {
+      const idEstado = this.estadoSelecionado.id;
+
+      this.publicidades = this.todasPublicidades.filter((pub) =>
+        pub.cad_estados.some((estado) => estado.id === idEstado)
+      );
     }
-
-    const idEstado = this.estadoSelecionado.id;
-
-    this.publicidades = this.todasPublicidades.filter((pub) =>
-      pub.cad_estados.some((estado) => estado.id === idEstado)
-    );
   }
-
   buscarPublicidades() {
     const termo = this.removerPipe.transform(this.buscarPublicidade);
     this.publicidades = this.todasPublicidades.filter((pub) => {
