@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { Publicidade } from '../models/publicidade';
 import { PublicidadeService } from '../services/publicidade.service';
+import { EstadoService } from '../services/estado.service';
 
 @Component({
   selector: 'app-modal-nova-publicidade',
@@ -15,7 +16,7 @@ export class ModalNovaPublicidadeComponent {
   imagemBase64: string | null = null;
   imagemPreview: string | null = null;
   nomeImagem: string = '';
-  estados: any[] | undefined;
+  estados: [] = [];
 
   publicidade: Publicidade = {
     id: 0,
@@ -28,10 +29,11 @@ export class ModalNovaPublicidadeComponent {
     imagem_base64: '', // base64
     cad_estados: [],
   };
-
+  
   constructor(
     private primengConfig: PrimeNGConfig,
-    private publicidadeService: PublicidadeService
+    private publicidadeService: PublicidadeService,
+    private estadoService: EstadoService
   ) {}
 
   ngOnInit() {
@@ -129,8 +131,12 @@ export class ModalNovaPublicidadeComponent {
     this.publicidade.imagem_base64 = '';
   }
 
+  
+
   salvarPublicidade() {
-    this.publicidadeService.criarPublicidade(this.publicidade).subscribe({
+    const { id, ...payload } = this.publicidade;
+    
+    this.publicidadeService.criarPublicidade(payload).subscribe({
       next: (res: any) => {
         console.log('Publicidade salva com sucesso!', res);
         this.fechar(); // ou this.fechar2() se estiver usando controle interno

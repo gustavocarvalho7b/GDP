@@ -27,7 +27,10 @@ class CadPublicidadesController < ApplicationController
 
     if params[:imagem].present?
       @cad_publicidade.imagem = params[:imagem].read
+    elsif params[:cad_publicidade][:imagem_base64].present?
+      @cad_publicidade.imagem_base64 = params[:cad_publicidade][:imagem_base64]
     end
+
 
     if @cad_publicidade.save
       if params[:cad_publicidade][:id_publicidade_estado].present?
@@ -47,10 +50,16 @@ class CadPublicidadesController < ApplicationController
 
   # PATCH/PUT /cad_publicidades/1
   def update
+    if params[:imagem].present?
+      @cad_publicidade.imagem = params[:imagem].read
+    elsif params[:cad_publicidade][:imagem_base64].present?
+      @cad_publicidade.imagem_base64 = params[:cad_publicidade][:imagem_base64]
+    end
+
     if @cad_publicidade.update(cad_publicidade_params)
-      render json: @cad_publicidade.as_json(methods: [ :imagem_base64 ], except: [ :imagem ])
+      render json: @cad_publicidade.as_json(methods: [:imagem_base64], except: [:imagem])
     else
-      render json: @cad_publicidade.as_json(methods: [ :imagem_base64 ], except: [ :imagem ])
+      render json: @cad_publicidade.errors, status: :unprocessable_entity
     end
   end
 

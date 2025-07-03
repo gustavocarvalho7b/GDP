@@ -8,6 +8,10 @@ class CadPublicidade < ApplicationRecord
     tipo = detectar_tipo_imagem(imagem)
     "data:#{tipo};base64,#{Base64.strict_encode64(imagem)}"
   end
+  def imagem_base64=(base64_str)
+    return if base64_str.blank?
+    self.imagem = Base64.decode64(base64_str.split(',').last)
+  end
 
   private
 

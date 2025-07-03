@@ -9,8 +9,8 @@ until pg_isready -h "$DATABASE_HOST" -p "$DATABASE_PORT" > /dev/null 2>&1; do
 done
 echo "Banco de dados disponível!"
 
-if [ "$RAILS_ENV" = "production" ]; then
-  echo "Verificando se banco de produção já existe..."
+if [ "$RAILS_ENV" = "development" ]; then
+  echo "Verificando se banco $RAILS_ENV já existe..."
   if ! ./bin/rails db:version > /dev/null 2>&1; then
     echo "Banco ainda não existe. Executando db:setup..."
     ./bin/rails db:setup
@@ -20,7 +20,7 @@ if [ "$RAILS_ENV" = "production" ]; then
     ./bin/rails db:seed
   fi
 else
-  echo "Ambiente de desenvolvimento. Executando db:prepare..."
+  echo "Ambiente: $RAILS_ENV. Executando db:prepare..."
   ./bin/rails db:prepare
 fi
 

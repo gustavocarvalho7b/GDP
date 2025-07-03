@@ -15,7 +15,7 @@ export class PublicidadeService {
     return this.http.get<Publicidade[]>(this.url);
   }
 
-  criarPublicidade(pub: Publicidade): Observable<any> {
+  criarPublicidade(pub: Omit<Publicidade, 'id'>): Observable<any> {
     return this.http.post(this.url, pub);
   }
 }
