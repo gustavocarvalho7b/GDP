@@ -36,10 +36,10 @@
       [publicidade]="pub"
       class="card"
     ></app-card-publicidade>
-    <app-modal-nova-publicidade
-      [visivel]="modalVisivel"
-      (aoFechar)="fecharModal()"
-      *ngIf="modalVisivel"
-    ></app-modal-nova-publicidade>
   </div>
+  <app-modal-nova-publicidade
+    [visivel]="modalVisivel"
+    (aoFechar)="fecharModal()"
+    *ngIf="modalVisivel"
+  ></app-modal-nova-publicidade>
 </div>

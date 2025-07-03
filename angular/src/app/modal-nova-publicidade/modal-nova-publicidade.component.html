@@ -18,32 +18,55 @@
               id="estadosDrop"
               [options]="estados"
               optionLabel="estado"
+              [(ngModel)]="publicidade.cad_estados"
+              name="cad_estados"
             />
           </div>
           <div class="titulo">
             <label for="textTitulo">Titulo *</label>
             <br />
-            <input type="text" pInputText id="textTitulo" />
+            <input
+              type="text"
+              pInputText
+              id="textTitulo"
+              [(ngModel)]="publicidade.titulo"
+              name="titulo"
+            />
           </div>
           <div class="descricao">
             <label for="textDescricao">Descrição *</label>
             <br />
-            <textarea 
+            <textarea
               rows="5"
-              cols="30" 
-              pInputTextarea 
+              cols="30"
+              pInputTextarea
               [autoResize]="true"
-              id="textDescricao">
+              id="textDescricao"
+              [(ngModel)]="publicidade.descricao"
+              name="descricao"
+            >
             </textarea>
           </div>
           <div class="meio">
             <div class="botaoText">
               <label for="textBotao">Título do botão *</label>
-              <input type="text" pInputText id="textBotao" />
+              <input
+                type="text"
+                pInputText
+                id="textBotao"
+                [(ngModel)]="publicidade.titulo_botao_link"
+                name="titulo_botao_link"
+              />
             </div>
             <div class="botaoLink">
               <label for>Link do botão *</label>
-              <input type="text" pInputText id="linkBotao" />
+              <input
+                type="text"
+                pInputText
+                id="linkBotao"
+                [(ngModel)]="publicidade.botao_link"
+                name="botao_link"
+              />
             </div>
           </div>
           <div class="datas">
@@ -54,21 +77,55 @@
                 [showIcon]="true"
                 inputId="icondisplay"
                 id="publicacaoData"
+                [(ngModel)]="publicidade.dt_inicio"
+                name="dt_inicio"
               />
             </div>
             <div class="dataFim">
               <label for="fimData">Data final da publicação *</label>
               <p-calendar
-              [iconDisplay]="'input'"
-              [showIcon]="true"
-              inputId="icondisplay"
-              id="fimData"
-            />
+                [iconDisplay]="'input'"
+                [showIcon]="true"
+                inputId="icondisplay"
+                id="fimData"
+                [(ngModel)]="publicidade.dt_fim"
+                name="dt_fim"
+              />
             </div>
           </div>
           <div class="imagem">
             <span>IMAGEM DA PUBLICIDADE</span>
-            <div class="selecionarImagem"></div>
+            <div class="selecionarImagem">
+              <div
+                class="caixaDeUpload"
+                (dragover)="onDragOver($event)"
+                (drop)="onDrop($event)"
+              >
+                <div *ngIf="imagemPreview" class="preview-box">
+                  <img [src]="imagemPreview" alt="Preview" />
+                  <div class="preview-info">
+                    <span>{{ nomeImagem }}</span>
+                    <i
+                      class="pi pi-trash delete-icon"
+                      (click)="removerImagem()"
+                    ></i>
+                  </div>
+                </div>
+                <ng-container *ngIf="!imagemPreview">
+                  <i class="pi pi-cloud-upload upload-icon"></i>
+                  <p>Selecione o arquivo ou arraste aqui para adicioná-lo.</p>
+                  <label class="upload-btn">
+                    <i class="pi pi-paperclip"></i>
+                    Selecionar arquivo
+                    <input
+                      type="file"
+                      hidden
+                      (change)="onFileSelected($event)"
+                    />
+                  </label>
+                </ng-container>
+              </div>
+            </div>
           </div>
           <div class="finalContainer">
             <div class="final">
@@ -78,7 +135,11 @@
                 id="cancelar"
                 (click)="fechar()"
               />
-              <p-button label="Confirmar" icon="pi pi-check" />
+              <p-button
+                label="Confirmar"
+                icon="pi pi-check"
+                (click)="salvarPublicidade()"
+              />
             </div>
           </div>
         </div>

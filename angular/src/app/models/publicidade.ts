@@ -1,4 +1,3 @@
-import { Binary } from '@angular/compiler';
 import { Estados } from './estados';
 
 export interface Publicidade {

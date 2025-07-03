@@ -1,14 +1,13 @@
 .overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.1); // escurece fundo
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000; // garantir que fique acima
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.1); // escurece fundo
+    display: flex;
+    align-items: center;
+    z-index: 1000; // garantir que fique acima
 }
 
 .modal {
@@ -21,6 +20,8 @@
     top: 56%;
     left: 50%;
     transform: translate(-50%, -50%);
+    top: 50% !important;
+    left: 50% !important;
 }
 
 .container {
@@ -66,8 +67,9 @@
 }
 
 ::ng-deep .descricao #textDescricao {
+    gap: 8px;
     width: 752px;
-    height: 96px;
+    height: 96px !important;
 }
 
 .meio {
@@ -142,4 +144,69 @@
 
 ::ng-deep .p-calendar input {
   cursor: pointer;
+}
+
+.caixaDeUpload {
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.upload-icon {
+  font-size: 48px;
+  color: #888;
+}
+
+.upload-btn {
+  padding: 10px 20px;
+  color: #4285F4;
+  border: 1px solid #4285F4;
+  border-radius: 4px;
+  font-weight: bold;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.upload-btn i {
+  margin-right: 8px;
+}
+
+.preview-box {
+  margin-top: 16px;
+}
+
+.preview-box img {
+  max-width: 200px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.preview-box {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.preview-box img {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.preview-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 14px;
+  color: #555;
+}
+
+.delete-icon {
+  cursor: pointer;
+  color: red;
+  font-size: 18px;
 }

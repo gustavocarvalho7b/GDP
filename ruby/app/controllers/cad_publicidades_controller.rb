@@ -65,10 +65,16 @@ class CadPublicidadesController < ApplicationController
     @cad_publicidade = CadPublicidade.find(params[:id])
   end
 
+  def imagem_base64=(base64_str)
+    if base64_str.present?
+      self.imagem = Base64.decode64(base64_str.split(",").last)
+    end
+  end
+
   def cad_publicidade_params
     params.require(:cad_publicidade).permit(
       :titulo, :descricao, :botao_link,
-      :titulo_botao_link, :dt_inicio, :dt_fim, :imagem,
+      :titulo_botao_link, :dt_inicio, :dt_fim, :imagem, :imagem_base64,
       id_publicidade_estado: []
     )
   end

@@ -44,7 +44,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     FileUploadModule,
     FormsModule,
     BrowserAnimationsModule,
-    InputTextareaModule
+    InputTextareaModule,
   ],
   providers: [RemoverCaracteresEspeciaisPipe],
   bootstrap: [AppComponent],
