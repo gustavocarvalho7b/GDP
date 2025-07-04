@@ -36,14 +36,14 @@ export class HomeComponent {
 
   abrirModal() {
     this.modalVisivel = true;
-    document.body.style.overflow = 'hidden';
-    document.body.style.paddingRight = '15px';
   }
 
   fecharModal() {
     this.modalVisivel = false;
-    document.body.style.overflow = 'auto';
-    document.body.style.paddingRight = '0px';
+    this.publicidadeService.selecionar().subscribe((dados) => {
+      this.publicidades = dados;
+      this.todasPublicidades = dados;
+    });
   }
 
   abrirDropdown() {
@@ -61,7 +61,6 @@ export class HomeComponent {
     if (!this.estadoSelecionado) return;
 
     if (this.estadoSelecionado.id === 0) {
-      // Todos os estados
       this.publicidades = this.todasPublicidades;
     } else {
       const idEstado = this.estadoSelecionado.id;
@@ -71,6 +70,7 @@ export class HomeComponent {
       );
     }
   }
+
   buscarPublicidades() {
     const termo = this.removerPipe.transform(this.buscarPublicidade);
     this.publicidades = this.todasPublicidades.filter((pub) => {

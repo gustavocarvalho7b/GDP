@@ -17,7 +17,8 @@
             <p-multiSelect
               id="estadosDrop"
               [options]="estados"
-              optionLabel="estado"
+              optionLabel="descricao"
+              [dataKey]="'id'"
               [(ngModel)]="publicidade.cad_estados"
               name="cad_estados"
             />

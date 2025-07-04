@@ -3,6 +3,7 @@ import { PrimeNGConfig } from 'primeng/api';
 import { Publicidade } from '../models/publicidade';
 import { PublicidadeService } from '../services/publicidade.service';
 import { EstadoService } from '../services/estado.service';
+import { Estados } from '../models/estados';
 
 @Component({
   selector: 'app-modal-nova-publicidade',
@@ -16,7 +17,8 @@ export class ModalNovaPublicidadeComponent {
   imagemBase64: string | null = null;
   imagemPreview: string | null = null;
   nomeImagem: string = '';
-  estados: [] = [];
+  estados: Estados[] = [];
+  estadosContemplados: Estados[] = [];
 
   publicidade: Publicidade = {
     titulo: '',
@@ -25,7 +27,7 @@ export class ModalNovaPublicidadeComponent {
     titulo_botao_link: '',
     dt_inicio: new Date(),
     dt_fim: new Date(),
-    imagem_base64: '', // base64
+    imagem_base64: '',
     cad_estados: [],
   };
 
@@ -82,6 +84,14 @@ export class ModalNovaPublicidadeComponent {
       dateFormat: 'dd/mm/yy',
       weekHeader: 'Sem',
     });
+    this.estadoService.selecionar().subscribe({
+      next: (res) => {
+        this.estados = res;
+      },
+      error: (err) => {
+        console.error('Erro ao buscar estados:', err);
+      },
+    });
   }
 
   fechar() {
@@ -131,14 +141,23 @@ export class ModalNovaPublicidadeComponent {
   }
 
   salvarPublicidade() {
-    const { id, ...payload } = this.publicidade;
+    const { id, cad_estados, ...payload } = this.publicidade;
 
-    const wrappedPayload = { cad_publicidade: payload };
+    const wrappedPayload = {
+      cad_publicidade: {
+        ...payload,
+        id_publicidade_estado: cad_estados.map((estado: Estados) => estado.id),
+      },
+      imagem_base64: this.publicidade.imagem_base64,
+    };
+
+    console.log('cad_estados:', this.publicidade.cad_estados);
+    console.log('Payload final enviado ao backend:', wrappedPayload);
 
     this.publicidadeService.criarPublicidade(wrappedPayload).subscribe({
       next: (res: any) => {
         console.log('Publicidade salva com sucesso!', res);
-        this.fechar();
+        this.aoFechar.emit();
       },
       error: (err: any) => {
         console.error('Erro ao salvar publicidade:', err);
