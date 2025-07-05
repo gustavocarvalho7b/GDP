@@ -1,0 +1,52 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: ruby_development
+  username: <%= ENV['DATABASE_USERNAME'] || 'ruby' %>
+  password: <%= ENV['DATABASE_PASSWORD'] || 'pinkola' %>
+  host: <%= ENV['DATABASE_HOST'] || 'localhost' %>
+  port: <%= ENV['DATABASE_PORT'] || 5432 %>
+
+test:
+  <<: *default
+  database: ruby_test
+  username: <%= ENV['DATABASE_USERNAME'] || 'ruby' %>
+  password: <%= ENV['DATABASE_PASSWORD'] || 'pinkola' %>
+  host: <%= ENV['DATABASE_HOST'] || 'localhost' %>
+  port: <%= ENV['DATABASE_PORT'] || 5432 %>
+
+production:
+  <<: *default
+  database: ruby_production
+  username: ruby
+  password: <%= ENV["RUBY_DATABASE_PASSWORD"] || 'pinkola' %>
+  host: <%= ENV['DATABASE_HOST'] || 'db' %>
+  port: <%= ENV['DATABASE_PORT'] || 5432 %>
+
+cable:
+  <<: *default
+  database: ruby_cable
+  username: ruby
+  password: <%= ENV["RUBY_DATABASE_PASSWORD"] || 'pinkola' %>
+  host: <%= ENV['DATABASE_HOST'] || 'db' %>
+  port: <%= ENV['DATABASE_PORT'] || 5432 %>
+
+queue:
+  <<: *default
+  database: ruby_queue
+  username: ruby
+  password: <%= ENV["RUBY_DATABASE_PASSWORD"] || 'pinkola' %>
+  host: <%= ENV['DATABASE_HOST'] || 'db' %>
+  port: <%= ENV['DATABASE_PORT'] || 5432 %>
+
+cache:
+  <<: *default
+  database: ruby_cache
+  username: ruby
+  password: <%= ENV["RUBY_DATABASE_PASSWORD"] || 'pinkola' %>
+  host: <%= ENV['DATABASE_HOST'] || 'db' %>
+  port: <%= ENV['DATABASE_PORT'] || 5432 %>

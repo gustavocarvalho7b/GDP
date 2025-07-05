@@ -1,0 +1,70 @@
+.gdp {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 64px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+    color: #495057;
+    padding-top: 76px;
+}
+
+.header {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header h1 {
+  line-height: 1.2;
+  margin: 0;
+}
+
+.input {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+::ng-deep .input .p-dropdown {
+  width: 415px !important;
+}
+
+.search-container {
+  flex: 1;
+}
+
+.search-input {
+  width: 100%;
+}
+
+/* Para todos os elementos com scroll */
+.corpo {
+  overflow: auto;
+
+  /* Firefox */
+  scrollbar-width: thin;         /* torna o scroll fino */
+  scrollbar-color: #999 transparent;  /* cor do thumb e do fundo */
+}
+
+/* Chrome, Edge, Safari */
+.corpo::-webkit-scrollbar {
+  width: 6px;   /* barra vertical */
+  height: 6px;  /* barra horizontal */
+}
+
+.corpo::-webkit-scrollbar-track {
+  background: transparent; /* fundo da barra */
+}
+
+.corpo::-webkit-scrollbar-thumb {
+  background-color: #999;
+  border-radius: 0;         /* sem borda arredondada → quadrado */
+  border: none;
+}
+
+.corpo::-webkit-scrollbar-thumb:hover {
+  background-color: #666; /* escurece no hover */
+}

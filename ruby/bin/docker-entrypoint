@@ -1,0 +1,27 @@
+#!/bin/bash
+set -e
+
+rm -f /rails/tmp/pids/server.pid
+
+echo "Aguardando banco de dados ficar disponível..."
+until pg_isready -h "$DATABASE_HOST" -p "$DATABASE_PORT" > /dev/null 2>&1; do
+  sleep 1
+done
+echo "Banco de dados disponível!"
+
+if [ "$RAILS_ENV" = "development" ]; then
+  echo "Verificando se banco $RAILS_ENV já existe..."
+  if ! ./bin/rails db:version > /dev/null 2>&1; then
+    echo "Banco ainda não existe. Executando db:setup..."
+    ./bin/rails db:setup
+  else
+    echo "Banco já existente. Executando db:migrate..."
+    ./bin/rails db:migrate
+    ./bin/rails db:seed
+  fi
+else
+  echo "Ambiente: $RAILS_ENV. Executando db:prepare..."
+  ./bin/rails db:prepare
+fi
+
+exec "$@"

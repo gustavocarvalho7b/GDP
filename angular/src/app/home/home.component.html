@@ -1,0 +1,46 @@
+<link
+  href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+/>
+<div class="gdp">
+  <div class="header">
+    <h1>Gerenciamento de Publicidade</h1>
+    <p-button
+      label="Nova publicidade"
+      icon="pi pi-plus-circle"
+      (click)="abrirModal()"
+    ></p-button>
+  </div>
+  <div class="input">
+    <p-dropdown
+      [options]="todosEstados"
+      [(ngModel)]="estadoSelecionado"
+      optionLabel="descricao"
+      optionValue="id"
+      (onClick)="abrirDropdown()"
+      (onChange)="selecionarEstado()"
+      placeholder="Selecione um estado"
+    />
+    <p-iconField iconPosition="right" class="search-container">
+      <p-inputIcon styleClass="pi pi-search" />
+      <input
+        type="text"
+        pInputText
+        class="search-input"
+        [(ngModel)]="buscarPublicidade"
+        (input)="buscarPublicidades()"
+      />
+    </p-iconField>
+  </div>
+  <div *ngFor="let pub of publicidades">
+    <app-card-publicidade
+      [publicidade]="pub"
+      class="card"
+    ></app-card-publicidade>
+  </div>
+  <app-modal-nova-publicidade
+    [visivel]="modalVisivel"
+    (aoFechar)="fecharModal()"
+    *ngIf="modalVisivel"
+  ></app-modal-nova-publicidade>
+</div>

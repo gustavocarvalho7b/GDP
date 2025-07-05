@@ -1,0 +1,92 @@
+.card {
+    background-color: var(--surface-overlay);
+    border: 1px solid var(--surface-200);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-family: 'Open Sans', sans-serif;
+    color: #495057;
+}
+
+.container {
+    margin: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.conteudo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.prev-imagem {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    object-fit: contain;
+    background-color: #E9ECEF;
+}
+
+.bloco-centro {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.titulo {
+    font-size: larger;
+}
+
+.descricao {
+    font-size: 14px;
+}
+
+.direita {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.tag-atual {
+    color: #136C34;
+    font-weight: 700;
+    background-color: #CAF1D8;
+    border-radius: 8px;
+    padding: 4px 8px;
+    white-space: nowrap;
+}
+
+.button {
+    border: 0;
+    background-color: transparent;
+    height: 48px;
+    cursor: pointer;
+}
+
+.detalhes {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+}
+
+.estado {
+    background-color: #E9ECEF;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 14px;
+    margin-right: 8px;
+}
+
+.date {
+    padding: 0 8px;
+    gap: 8px;
+    i {
+        margin-right: 8px;
+    }
+}

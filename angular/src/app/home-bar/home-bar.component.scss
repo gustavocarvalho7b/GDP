@@ -1,0 +1,20 @@
+.topbar {
+    background-color: var(--surface-overlay);
+    border: 1px solid var(--surface-200);
+    width:150%;
+    height: 72px;
+    align-items: center;
+    display: flex;
+    padding-left: 64px;
+    padding-right: 64px;
+    z-index: 1000;
+    position: fixed;
+
+    
+}
+
+
+.topbar .left .embras {
+    width: 112px;
+    height: 40px;
+}

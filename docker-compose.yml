@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: ruby
+      POSTGRES_PASSWORD: pinkola
+      POSTGRES_DB: ruby_development
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+  backend:
+    build:
+      context: ./ruby
+      dockerfile: Dockerfile
+    image: rails-backend
+    container_name: rails-backend
+    working_dir: /rails
+    volumes:
+      - ./ruby:/rails
+      - storage_data:/rails/storage
+    ports:
+      - "3000:3000"
+    environment:
+      RAILS_ENV: development
+      DATABASE_USERNAME: ruby
+      RUBY_DATABASE_PASSWORD: pinkola
+      RAILS_MASTER_KEY: 938c3ae34a5596256bd01f829dd3cd30
+      DATABASE_HOST: postgres-db
+      DATABASE_PORT: 5432
+
+    depends_on:
+      - db
+
+volumes:
+  db_data:
+  storage_data:

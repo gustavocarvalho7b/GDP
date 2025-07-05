@@ -1,0 +1,231 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.1); // escurece fundo
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; // garantir que fique acima
+    padding: 1rem;
+}
+
+.modal {
+    background-color: var(--surface-overlay);
+    border: 1px solid var(--surface-200);
+
+    // width: max-content;
+    height: 100%;
+    border-radius: 8px;
+   // position: fixed;
+   // transform: translate(-50%, -50%);
+    // top: 50% !important;
+    // left: 50% !important;
+    display: flex;
+    
+  
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    border-bottom: 1px solid #ccc;
+    height: 75px;
+    align-items: center;
+    margin-left: -24px;
+    margin-right: -24px;
+    padding: 24px;
+}
+
+.corpo {
+    padding: 0 24px;
+    flex: 1;
+    overflow: auto;
+}
+
+.botoes {
+  border-top: 1px solid #ccc;
+  padding: 24px;
+  display: flex;
+  gap: 8px;
+  justify-content:flex-end
+}
+
+.texto {
+    padding: 0 24px;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: larger;
+}
+
+.fechar {
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.estadosContemplados {
+    padding: 24px 0px;
+}
+::ng-deep #estadosDrop .p-multiselect {
+    width: 752px;
+}
+
+::ng-deep .titulo #textTitulo {
+    width: 752px;
+}
+
+.descricao {
+    padding: 24px  0px;
+}
+
+::ng-deep .descricao #textDescricao {
+    gap: 8px;
+    width: 752px;
+    height: 96px !important;
+}
+
+.meio {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+
+::ng-deep .botaoText #textBotao {
+    width: 366px;
+    flex: 1;
+    display: flex;
+   flex-direction: column;
+}
+
+::ng-deep .botaoLink #linkBotao {
+    width: 366px;
+    flex: 1;
+    display: flex;
+   flex-direction: column;
+}
+
+.datas {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    padding: 24px 0px;
+}
+
+::ng-deep .dataPublicacao #publicacaoData {
+    width: 366px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+}
+
+::ng-deep .dataFim #fimData {
+    width: 366px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.imagem {
+    padding-bottom:  24px;
+}
+
+.finalContainer {
+    border-top: 1px solid #ccc;
+}
+
+.final {
+    margin-right: 24px;
+    padding: 24px 0px;
+    display: flex;
+    justify-content: end;
+}
+
+::ng-deep .final #cancelar {
+    padding-right: 20px;
+}
+
+::ng-deep #cancelar button {
+    color: #495057;
+    background-color: white;
+    border-color: #495057;
+}
+
+::ng-deep .p-calendar input {
+  cursor: pointer;
+}
+
+.caixaDeUpload {
+  padding: 20px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.imagemPreview{
+  border: -1px solid white !important;
+
+}
+
+.upload-icon {
+  font-size: 48px;
+  color: #888;
+}
+
+.botaoDeUpload {
+  padding: 10px 20px;
+  color: #4285F4;
+  border: 1px solid #4285F4;
+  border-radius: 4px;
+  font-weight: bold;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.botaoDeUpload i {
+  margin-right: 8px;
+}
+
+
+.caixaDePreview {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  width: 100%;
+  
+}
+
+.caixaDePreview img {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  object-fit: contain;
+  background-color: #E9ECEF;
+}
+
+.infoPreview {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+}
+
+.nomePreview {
+  font-size: 14px;
+  color: #555;
+}
+
+.delete-icon {
+
+  cursor: pointer;
+  color: red;
+  font-size: 18px;
+}
