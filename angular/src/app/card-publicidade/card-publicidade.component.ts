@@ -1,5 +1,11 @@
-import { Component, Input } from '@angular/core';
-import { Publicidade } from '../models/publicidade';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import { OverlayPanel } from 'primeng/overlaypanel';
 
 @Component({
   selector: 'app-card-publicidade',
@@ -8,6 +14,9 @@ import { Publicidade } from '../models/publicidade';
 })
 export class CardPublicidadeComponent {
   @Input() publicidade!: any;
+
+  @Output() editar = new EventEmitter<void>();
+  @Output() excluir = new EventEmitter<void>();
   isAtual(): boolean {
     if (!this.publicidade.dt_inicio || !this.publicidade.dt_fim) return false;
 
@@ -24,4 +33,14 @@ export class CardPublicidadeComponent {
 
     return dataAtual >= inicio && dataAtual <= fim;
   }
+
+  emitirEditar() {
+    this.editar.emit(this.publicidade);
+  }
+
+  emitirExcluir() {
+    this.excluir.emit(this.publicidade);
+  }
+
+  @ViewChild('overlay') overlay!: OverlayPanel;
 }

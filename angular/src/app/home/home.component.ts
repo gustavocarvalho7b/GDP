@@ -86,4 +86,14 @@ export class HomeComponent {
       return titulo.includes(termo) || descricao.includes(termo);
     });
   }
+
+  editarPublicidade(publicidade: any) {
+    // Aqui vai a lógica para editar, exemplo: abrir modal
+    console.log('Editar publicidade:', publicidade);
+  }
+
+  excluirPublicidade(publicidade: any) {
+    // Aqui vai a lógica para exclusão
+    console.log('Excluir publicidade:', publicidade);
+  }
 }

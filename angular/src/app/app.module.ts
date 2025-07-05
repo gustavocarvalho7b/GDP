@@ -20,6 +20,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RemoverCaracteresEspeciaisPipe } from './pipes/remover-caracteres-especiais.pipe';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     FormsModule,
     BrowserAnimationsModule,
     InputTextareaModule,
+    OverlayPanelModule,
   ],
   providers: [RemoverCaracteresEspeciaisPipe],
   bootstrap: [AppComponent],

@@ -28,6 +28,11 @@
     flex-wrap: wrap;
 }
 
+app-card-publicidade.card {
+  margin-bottom: 16px;
+  display: block;  
+}
+
 ::ng-deep .input .p-dropdown {
   width: 415px !important;
 }

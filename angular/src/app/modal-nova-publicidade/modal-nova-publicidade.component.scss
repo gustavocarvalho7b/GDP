@@ -135,10 +135,6 @@
 
 }
 
-.imagem {
-    padding-bottom:  24px;
-}
-
 .finalContainer {
     border-top: 1px solid #ccc;
 }
@@ -165,13 +161,14 @@
 }
 
 .caixaDeUpload {
-  padding: 20px;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 16px;
+  margin-bottom: 16px
 }
 
 .imagemPreview{
   border: -1px solid white !important;
+  padding: 16px;
 
 }
 

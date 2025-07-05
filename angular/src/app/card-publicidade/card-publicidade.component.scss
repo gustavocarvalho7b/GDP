@@ -51,7 +51,44 @@
     gap: 8px;
 }
 
-.tag-atual {
+::ng-deep .menu-flutuante {
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 200px;
+    min-width: 140px;
+    width: auto;
+    padding: 4px 0;
+}
+
+// Tira a seta do menu
+::ng-deep .menu-flutuante::before,
+::ng-deep .menu-flutuante::after {
+  display: none !important;
+}
+
+::ng-deep .menu-flutuante .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+::ng-deep .p-overlaypanel-content{
+    padding: 0;
+}
+
+::ng-deep .menu-flutuante .menu-item:hover {
+    background-color: #f5f5f5;
+}
+
+::ng-deep .menu-flutuante .encerrar {
+    color: #e53935;
+}
+
+.tagAtual {
     color: #136C34;
     font-weight: 700;
     background-color: #CAF1D8;

@@ -32,10 +32,13 @@
       />
     </p-iconField>
   </div>
-  <div *ngFor="let pub of publicidades">
+  <div>
     <app-card-publicidade
+      *ngFor="let pub of publicidades"
       [publicidade]="pub"
       class="card"
+      (editar)="editarPublicidade(pub)"
+      (excluir)="excluirPublicidade(pub)"
     ></app-card-publicidade>
   </div>
   <app-modal-nova-publicidade
