@@ -6,6 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { OverlayPanel } from 'primeng/overlaypanel';
+import { Publicidade } from '../models/publicidade';
 
 @Component({
   selector: 'app-card-publicidade',
@@ -15,8 +16,8 @@ import { OverlayPanel } from 'primeng/overlaypanel';
 export class CardPublicidadeComponent {
   @Input() publicidade!: any;
 
-  @Output() editar = new EventEmitter<void>();
-  @Output() excluir = new EventEmitter<void>();
+  @Output() editar = new EventEmitter<Publicidade>();
+  @Output() excluir = new EventEmitter<Publicidade>();
   isAtual(): boolean {
     if (!this.publicidade.dt_inicio || !this.publicidade.dt_fim) return false;
 

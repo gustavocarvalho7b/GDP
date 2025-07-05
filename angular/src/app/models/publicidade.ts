@@ -8,7 +8,7 @@ export interface Publicidade {
   titulo_botao_link: string;
   dt_inicio: Date;
   dt_fim: Date;
-  id_publicidade_estado: number[];
   imagem_base64: string;
+  id_publicidade_estado: number[];
   cad_estados?: Estados[];
 }

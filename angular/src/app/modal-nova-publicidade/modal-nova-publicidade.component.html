@@ -20,7 +20,7 @@
               optionLabel="descricao"
               [dataKey]="'id'"
               optionValue="id"
-              [(ngModel)]="publicidade.id_publicidade_estado"
+              [(ngModel)]="novaPublicidade.id_publicidade_estado"
               name="id_publicidade_estado"
             />
           </div>
@@ -31,7 +31,7 @@
               type="text"
               pInputText
               id="textTitulo"
-              [(ngModel)]="publicidade.titulo"
+              [(ngModel)]="novaPublicidade.titulo"
               name="titulo"
             />
           </div>
@@ -44,7 +44,7 @@
               pInputTextarea
               [autoResize]="true"
               id="textDescricao"
-              [(ngModel)]="publicidade.descricao"
+              [(ngModel)]="novaPublicidade.descricao"
               name="descricao"
             >
             </textarea>
@@ -56,7 +56,7 @@
                 type="text"
                 pInputText
                 id="textBotao"
-                [(ngModel)]="publicidade.titulo_botao_link"
+                [(ngModel)]="novaPublicidade.titulo_botao_link"
                 name="titulo_botao_link"
               />
             </div>
@@ -66,7 +66,7 @@
                 type="text"
                 pInputText
                 id="linkBotao"
-                [(ngModel)]="publicidade.botao_link"
+                [(ngModel)]="novaPublicidade.botao_link"
                 name="botao_link"
               />
             </div>
@@ -79,7 +79,7 @@
                 [showIcon]="true"
                 inputId="icondisplay"
                 id="publicacaoData"
-                [(ngModel)]="publicidade.dt_inicio"
+                [(ngModel)]="novaPublicidade.dt_inicio"
                 name="dt_inicio"
               />
             </div>
@@ -90,7 +90,7 @@
                 [showIcon]="true"
                 inputId="icondisplay"
                 id="fimData"
-                [(ngModel)]="publicidade.dt_fim"
+                [(ngModel)]="novaPublicidade.dt_fim"
                 name="dt_fim"
               />
             </div>

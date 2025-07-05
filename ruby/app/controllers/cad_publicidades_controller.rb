@@ -25,7 +25,6 @@ class CadPublicidadesController < ApplicationController
   def create
     @cad_publicidade = CadPublicidade.new(cad_publicidade_params)
 
-    # Nenhum decode manual aqui — o model faz isso via imagem_base64=
     if @cad_publicidade.save
       # associa estados
       if params[:cad_publicidade][:id_publicidade_estado].present?
@@ -45,8 +44,19 @@ class CadPublicidadesController < ApplicationController
 
   # PATCH/PUT /cad_publicidades/1
   def update
-    if @cad_publicidade.update(cad_publicidade_params)
-      render json: @cad_publicidade.as_json(methods: [ :imagem_base64 ], except: [ :imagem ])
+    if @cad_publicidade.update(cad_publicidade_params.except(:id_publicidade_estado))
+      @cad_publicidade.cad_publicidade_estados.destroy_all
+
+      if params[:cad_publicidade][:id_publicidade_estado].present?
+        params[:cad_publicidade][:id_publicidade_estado].each do |estado_id|
+          CadPublicidadeEstado.create!(
+            id_publicidade: @cad_publicidade.id,
+            id_estado: estado_id
+          )
+        end
+      end
+
+      render json: @cad_publicidade.as_json(methods: [:imagem_base64], except: [:imagem])
     else
       render json: @cad_publicidade.errors, status: :unprocessable_entity
     end
@@ -63,11 +73,6 @@ class CadPublicidadesController < ApplicationController
     @cad_publicidade = CadPublicidade.find(params[:id])
   end
 
-  def imagem_base64=(base64_str)
-    if base64_str.present?
-      self.imagem = Base64.decode64(base64_str.split(",").last)
-    end
-  end
 
   def cad_publicidade_params
     params.require(:cad_publicidade).permit(

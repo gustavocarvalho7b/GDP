@@ -17,6 +17,7 @@ export class HomeComponent {
   estadoSelecionado: number | null = null;
   todasPublicidades: Publicidade[] = [];
   buscarPublicidade: string = '';
+  publicidadeEditando: Publicidade | null = null;
 
   constructor(
     private publicidadeService: PublicidadeService,
@@ -87,9 +88,9 @@ export class HomeComponent {
     });
   }
 
-  editarPublicidade(publicidade: any) {
-    // Aqui vai a lógica para editar, exemplo: abrir modal
-    console.log('Editar publicidade:', publicidade);
+  editarPublicidade(publicidade: Publicidade) {
+    this.publicidadeEditando = { ...publicidade };
+    this.modalVisivel = true;
   }
 
   excluirPublicidade(publicidade: any) {

@@ -4,7 +4,9 @@ class CadPublicidade < ApplicationRecord
 
   def imagem_base64
     return nil unless imagem.present?
-    "data:image/png;base64,#{Base64.strict_encode64(imagem)}"
+
+    tipo = detectar_tipo_imagem(imagem)
+    "data:#{tipo};base64,#{Base64.strict_encode64(imagem)}"
   end
 
   def imagem_base64=(base64_str)

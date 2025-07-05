@@ -12,6 +12,7 @@ import { Estados } from '../models/estados';
 })
 export class ModalNovaPublicidadeComponent {
   @Input() visivel: boolean = false;
+  @Input() publicidade: Publicidade | null = null;
   @Output() aoFechar = new EventEmitter<void>();
 
   imagemBase64: string | null = null;
@@ -20,16 +21,36 @@ export class ModalNovaPublicidadeComponent {
   estados: Estados[] = [];
   estadosContemplados: Estados[] = [];
 
-  publicidade: Publicidade = {
-    titulo: '',
-    descricao: '',
-    botao_link: '',
-    titulo_botao_link: '',
-    dt_inicio: new Date(),
-    dt_fim: new Date(),
-    imagem_base64: '',
-    id_publicidade_estado: [],
-  };
+  novaPublicidade: Publicidade = this.resetarPublicidade();
+
+  ngOnChanges(): void {
+    if (this.publicidade) {
+      this.novaPublicidade = {
+        ...this.publicidade,
+        dt_inicio: new Date(this.publicidade.dt_inicio),
+        dt_fim: new Date(this.publicidade.dt_fim),
+        id_publicidade_estado:
+          this.publicidade.cad_estados?.map((e) => e.id) || [],
+      };
+    } else {
+      this.novaPublicidade = this.resetarPublicidade();
+    }
+  }
+
+  resetarPublicidade(): Publicidade {
+    return {
+      id: 0,
+      titulo: '',
+      descricao: '',
+      imagem_base64: '',
+      titulo_botao_link: '',
+      botao_link: '',
+      dt_inicio: new Date(),
+      dt_fim: new Date(),
+      id_publicidade_estado: [],
+      cad_estados: [],
+    };
+  }
 
   constructor(
     private primengConfig: PrimeNGConfig,
@@ -109,7 +130,7 @@ export class ModalNovaPublicidadeComponent {
         this.imagemPreview = reader.result as string;
 
         // salva no objeto que será enviado
-        this.publicidade.imagem_base64 = this.imagemPreview;
+        this.novaPublicidade!.imagem_base64 = this.imagemPreview;
       };
       reader.readAsDataURL(file);
     }
@@ -128,7 +149,7 @@ export class ModalNovaPublicidadeComponent {
       const reader = new FileReader();
       reader.onload = () => {
         this.imagemPreview = reader.result as string;
-        this.publicidade.imagem_base64 = this.imagemPreview;
+        this.novaPublicidade!.imagem_base64 = this.imagemPreview;
       };
       reader.readAsDataURL(file);
     }
@@ -137,29 +158,32 @@ export class ModalNovaPublicidadeComponent {
   removerImagem(): void {
     this.imagemPreview = null;
     this.nomeImagem = '';
-    this.publicidade.imagem_base64 = '';
+    this.imagemPreview = this.novaPublicidade!.imagem_base64 || null;
   }
 
-  salvarPublicidade() {
-    const { id, ...payload } = this.publicidade;
-
-    const wrappedPayload = {
+  salvarPublicidade(): void {
+    const { id, cad_estados, ...dadosParaEnvio } = this.novaPublicidade;
+    const payload = {
       cad_publicidade: {
-        ...payload,
+        ...dadosParaEnvio,
       },
-      imagem_base64: this.publicidade.imagem_base64,
+      imagem_base64: this.novaPublicidade.imagem_base64,
     };
 
-    console.log('cad_estados:', this.publicidade.id_publicidade_estado);
-    console.log('Payload final enviado ao backend:', wrappedPayload);
+    const request$ = this.novaPublicidade.id
+      ? this.publicidadeService.atualizarPublicidade(
+          this.novaPublicidade.id,
+          payload
+        )
+      : this.publicidadeService.criarPublicidade(payload);
 
-    this.publicidadeService.criarPublicidade(wrappedPayload).subscribe({
-      next: (res: any) => {
-        console.log('Publicidade salva com sucesso!', res);
+    request$.subscribe({
+      next: () => {
+        console.log('Publicidade salva/atualizada com sucesso!');
         this.aoFechar.emit();
       },
-      error: (err: any) => {
-        console.error('Erro ao salvar publicidade:', err);
+      error: (err) => {
+        console.error('Erro ao salvar/atualizar publicidade:', err);
       },
     });
   }

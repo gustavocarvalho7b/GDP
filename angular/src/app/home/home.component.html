@@ -37,12 +37,13 @@
       *ngFor="let pub of publicidades"
       [publicidade]="pub"
       class="card"
-      (editar)="editarPublicidade(pub)"
-      (excluir)="excluirPublicidade(pub)"
+      (editar)="editarPublicidade($event)"
+      (excluir)="excluirPublicidade($event)"
     ></app-card-publicidade>
   </div>
   <app-modal-nova-publicidade
     [visivel]="modalVisivel"
+    [publicidade]="publicidadeEditando"
     (aoFechar)="fecharModal()"
     *ngIf="modalVisivel"
   ></app-modal-nova-publicidade>

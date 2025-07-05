@@ -17,4 +17,7 @@ export class PublicidadeService {
   criarPublicidade(payload: any): Observable<any> {
     return this.http.post(`${this.url}`, payload);
   }
+  atualizarPublicidade(id: number, publicidade: any) {
+    return this.http.put(`${this.url}/${id}`, publicidade);
+  }
 }
