@@ -3,16 +3,7 @@ FROM ruby:$RUBY_VERSION-slim AS base
 
 WORKDIR /rails
 
-ENV RAILS_ENV="production" \
-    BUNDLE_DEPLOYMENT="1" \
-    BUNDLE_PATH="/usr/local/bundle" \
-    BUNDLE_WITHOUT="development" \
-    PATH="/usr/local/bundle/bin:$PATH"
-
-# ----------------------------
-# Etapa de build
-# ----------------------------
-FROM base AS build
+ENV RAILS_ENV="development"
 
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
@@ -20,33 +11,7 @@ RUN apt-get update -qq && \
     rm -rf /var/lib/apt/lists/*
 
 COPY Gemfile Gemfile.lock ./
-RUN bundle install && \
-    rm -rf "${BUNDLE_PATH}/ruby/*/cache" "${BUNDLE_PATH}/ruby/*/bundler/gems/*/.git" && \
-    bundle exec bootsnap precompile --gemfile
-
-COPY . .
-
-RUN bundle exec bootsnap precompile app/ lib/ && \
-    find bin -type f -exec chmod +x {} \; && \
-    sed -i 's/\r$//' bin/*
-
-# ----------------------------
-# Etapa final
-# ----------------------------
-FROM base
-
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y \
-      curl libvips libpq-dev postgresql-client && \
-    rm -rf /var/lib/apt/lists/*
-
-COPY --from=build /usr/local/bundle /usr/local/bundle
-COPY --from=build /rails /rails
-
-RUN useradd rails --create-home --shell /bin/bash && \
-    chown -R rails:rails /rails /usr/local/bundle
-
-USER rails:rails
+RUN bundle install
 
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 

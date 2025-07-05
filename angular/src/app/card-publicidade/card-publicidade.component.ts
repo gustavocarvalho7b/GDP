@@ -7,7 +7,7 @@ import { Publicidade } from '../models/publicidade';
   styleUrl: './card-publicidade.component.scss',
 })
 export class CardPublicidadeComponent {
-  @Input() publicidade!: Publicidade;
+  @Input() publicidade!: any;
   isAtual(): boolean {
     if (!this.publicidade.dt_inicio || !this.publicidade.dt_fim) return false;
 

@@ -66,7 +66,7 @@ export class HomeComponent {
       const idEstado = this.estadoSelecionado.id;
 
       this.publicidades = this.todasPublicidades.filter((pub) =>
-        pub.cad_estados.some((estado) => estado.id === idEstado)
+        pub.id_publicidade_estado.some((estado) => estado === idEstado)
       );
     }
   }

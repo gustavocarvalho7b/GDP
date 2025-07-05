@@ -22,7 +22,6 @@ services:
     working_dir: /rails
     volumes:
       - ./ruby:/rails
-      - ./ruby/config/master.key:/rails/config/master.key:ro
       - storage_data:/rails/storage
     ports:
       - "3000:3000"
@@ -31,8 +30,8 @@ services:
       DATABASE_USERNAME: ruby
       RUBY_DATABASE_PASSWORD: pinkola
       RAILS_MASTER_KEY: 938c3ae34a5596256bd01f829dd3cd30
-      DATABASE_HOST: postgres-db 
-      DATABASE_PORT: 5432 
+      DATABASE_HOST: postgres-db
+      DATABASE_PORT: 5432
 
     depends_on:
       - db

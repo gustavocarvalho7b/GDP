@@ -1,16 +1,16 @@
-<form>
-  <div class="overlay">
-    <div class="modal">
-      <div class="container">
-        <div class="header">
-          <div class="texto">
-            <span><b>Nova publicidade</b></span>
-            <button class="fechar">
-              <i class="pi pi-times" (click)="fechar()"></i>
-            </button>
-          </div>
+<div class="overlay">
+  <div class="modal">
+    <div class="container">
+      <div class="header">
+        <div class="texto">
+          <span><b>Nova publicidade</b></span>
+          <button class="fechar">
+            <i class="pi pi-times" (click)="fechar()"></i>
+          </button>
         </div>
-        <div class="corpo">
+      </div>
+      <div class="corpo">
+        <form>
           <div class="estadosContemplados">
             <label for="estadosDrop">Estados contemplados *</label>
             <br />
@@ -19,8 +19,9 @@
               [options]="estados"
               optionLabel="descricao"
               [dataKey]="'id'"
-              [(ngModel)]="publicidade.cad_estados"
-              name="cad_estados"
+              optionValue="id"
+              [(ngModel)]="publicidade.id_publicidade_estado"
+              name="id_publicidade_estado"
             />
           </div>
           <div class="titulo">
@@ -128,23 +129,21 @@
               </div>
             </div>
           </div>
-          <div class="finalContainer">
-            <div class="final">
-              <p-button
-                label="Cancelar"
-                icon="pi pi-times"
-                id="cancelar"
-                (click)="fechar()"
-              />
-              <p-button
-                label="Confirmar"
-                icon="pi pi-check"
-                (click)="salvarPublicidade()"
-              />
-            </div>
-          </div>
-        </div>
+        </form>
+      </div>
+      <div class="botoes">
+        <p-button
+          label="Cancelar"
+          icon="pi pi-times"
+          id="cancelar"
+          (click)="fechar()"
+        />
+        <p-button
+          label="Confirmar"
+          icon="pi pi-check"
+          (click)="salvarPublicidade()"
+        />
       </div>
     </div>
   </div>
-</form>
+</div>

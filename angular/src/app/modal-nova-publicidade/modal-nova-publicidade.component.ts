@@ -28,7 +28,7 @@ export class ModalNovaPublicidadeComponent {
     dt_inicio: new Date(),
     dt_fim: new Date(),
     imagem_base64: '',
-    cad_estados: [],
+    id_publicidade_estado: [],
   };
 
   constructor(
@@ -141,17 +141,16 @@ export class ModalNovaPublicidadeComponent {
   }
 
   salvarPublicidade() {
-    const { id, cad_estados, ...payload } = this.publicidade;
+    const { id, ...payload } = this.publicidade;
 
     const wrappedPayload = {
       cad_publicidade: {
         ...payload,
-        id_publicidade_estado: cad_estados.map((estado: Estados) => estado.id),
       },
       imagem_base64: this.publicidade.imagem_base64,
     };
 
-    console.log('cad_estados:', this.publicidade.cad_estados);
+    console.log('cad_estados:', this.publicidade.id_publicidade_estado);
     console.log('Payload final enviado ao backend:', wrappedPayload);
 
     this.publicidadeService.criarPublicidade(wrappedPayload).subscribe({
