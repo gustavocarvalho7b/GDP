@@ -23,20 +23,17 @@ class CadPublicidadesController < ApplicationController
 
   # POST /cad_publicidades
   def create
-    @cad_publicidade = CadPublicidade.new(cad_publicidade_params)
+    @cad_publicidade = CadPublicidade.new(cad_publicidade_params.except(:id_publicidade_estado))
+
+    # ⚠️ Constrói as associações ANTES do save
+    if params[:cad_publicidade][:id_publicidade_estado].present?
+      params[:cad_publicidade][:id_publicidade_estado].each do |estado_id|
+        @cad_publicidade.cad_publicidade_estados.build(id_estado: estado_id)
+      end
+    end
 
     if @cad_publicidade.save
-      # associa estados
-      if params[:cad_publicidade][:id_publicidade_estado].present?
-        params[:cad_publicidade][:id_publicidade_estado].each do |estado_id|
-          CadPublicidadeEstado.create!(
-            id_publicidade: @cad_publicidade.id,
-            id_estado: estado_id
-          )
-        end
-      end
-
-      render json: @cad_publicidade.as_json(methods: [ :imagem_base64 ], except: [ :imagem ]), status: :created
+      render json: @cad_publicidade.as_json(methods: [:imagem_base64], except: [:imagem]), status: :created
     else
       render json: @cad_publicidade.errors, status: :unprocessable_entity
     end
