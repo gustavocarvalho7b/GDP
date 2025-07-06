@@ -43,7 +43,13 @@
       <div class="date">
         <i class="pi pi-calendar"></i>
         <span>
-          Ativo até <b>{{ publicidade.dt_fim | date : "dd/MM/yyyy" }}</b>
+          <ng-container *ngIf="tipo === 'futura'; else ativaTemplate">
+            Será publicado em
+            <b>{{ publicidade.dt_inicio | date : "dd/MM/yyyy" }}</b>
+          </ng-container>
+          <ng-template #ativaTemplate>
+            Ativa até <b>{{ publicidade.dt_fim | date : "dd/MM/yyyy" }}</b>
+          </ng-template>
         </span>
       </div>
     </div>

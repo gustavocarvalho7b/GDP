@@ -21,6 +21,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RemoverCaracteresEspeciaisPipe } from './pipes/remover-caracteres-especiais.pipe';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -47,8 +49,9 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     BrowserAnimationsModule,
     InputTextareaModule,
     OverlayPanelModule,
+    ToastModule,
   ],
-  providers: [RemoverCaracteresEspeciaisPipe],
+  providers: [RemoverCaracteresEspeciaisPipe, MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

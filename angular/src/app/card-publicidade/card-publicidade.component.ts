@@ -15,6 +15,7 @@ import { Publicidade } from '../models/publicidade';
 })
 export class CardPublicidadeComponent {
   @Input() publicidade!: any;
+  @Input() tipo: 'atual' | 'futura' = 'atual';
 
   @Output() editar = new EventEmitter<Publicidade>();
   @Output() excluir = new EventEmitter<Publicidade>();

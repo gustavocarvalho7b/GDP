@@ -4,6 +4,7 @@ import { Publicidade } from '../models/publicidade';
 import { PublicidadeService } from '../services/publicidade.service';
 import { EstadoService } from '../services/estado.service';
 import { Estados } from '../models/estados';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-modal-nova-publicidade',
@@ -14,6 +15,7 @@ export class ModalNovaPublicidadeComponent {
   @Input() visivel: boolean = false;
   @Input() publicidade: Publicidade | null = null;
   @Output() aoFechar = new EventEmitter<void>();
+  @Output() publicacaoSalva = new EventEmitter<'sucesso' | 'erro'>();
 
   imagemBase64: string | null = null;
   imagemPreview: string | null = null;
@@ -61,7 +63,8 @@ export class ModalNovaPublicidadeComponent {
   constructor(
     private primengConfig: PrimeNGConfig,
     private publicidadeService: PublicidadeService,
-    private estadoService: EstadoService
+    private estadoService: EstadoService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit() {
@@ -195,10 +198,22 @@ export class ModalNovaPublicidadeComponent {
 
     request$.subscribe({
       next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sucesso!',
+          detail: 'Publicação salva com sucesso',
+          life: 3000,
+        });
         console.log('Publicidade salva/atualizada com sucesso!');
         this.aoFechar.emit();
       },
       error: (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro!',
+          detail: 'Falha ao salvar publicação',
+          life: 3000,
+        });
         console.error('Erro ao salvar/atualizar publicidade:', err);
       },
     });

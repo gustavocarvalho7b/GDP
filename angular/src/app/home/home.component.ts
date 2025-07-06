@@ -4,6 +4,7 @@ import { EstadoService } from '../services/estado.service';
 import { Estados } from '../models/estados';
 import { PublicidadeService } from '../services/publicidade.service';
 import { RemoverCaracteresEspeciaisPipe } from '../pipes/remover-caracteres-especiais.pipe';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +25,8 @@ export class HomeComponent {
   constructor(
     private publicidadeService: PublicidadeService,
     private estadoService: EstadoService,
-    private removerPipe: RemoverCaracteresEspeciaisPipe
+    private removerPipe: RemoverCaracteresEspeciaisPipe,
+    private messageService: MessageService
   ) {}
 
   ngOnInit() {
@@ -136,12 +138,47 @@ export class HomeComponent {
 
     this.publicidadeService.excluirPublicidade(publicidade.id).subscribe({
       next: () => {
-        console.log('Publicidade excluída com sucesso!');
-        this.carregarPublicidades();
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Encerrada',
+          detail: 'A publicidade foi Encerrada com sucesso',
+          life: 3000,
+        });
+
+        // Atualize a lista de publicidades, se necessário:
+        this.publicidades = this.publicidades.filter(
+          (p) => p.id !== publicidade.id
+        );
+        this.todasPublicidades = this.publicidades;
+        this.filtrarPublicidadesPorData();
       },
       error: (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro ao excluir',
+          detail: 'Não foi possível excluir a publicidade 😢',
+          life: 3000,
+        });
         console.error('Erro ao excluir publicidade:', err);
       },
     });
+  }
+
+  mostrarToast(tipo: 'sucesso' | 'erro') {
+    if (tipo === 'sucesso') {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Sucesso!',
+        detail: 'Publicação salva com sucesso 😄',
+        life: 3000,
+      });
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erro!',
+        detail: 'Não foi possível salvar a publicação 😢',
+        life: 3000,
+      });
+    }
   }
 }
