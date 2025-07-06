@@ -41,15 +41,22 @@ export class HomeComponent {
     this.publicidadesAtuais = this.todasPublicidades.filter((pub) => {
       const dtInicioStr = new Date(pub.dt_inicio).toISOString().split('T')[0];
       const dtFimStr = new Date(pub.dt_fim).toISOString().split('T')[0];
-      return hojeStr >= dtInicioStr && hojeStr <= dtFimStr;
+      const pertenceAoEstado =
+        this.estadoSelecionado === 0 ||
+        this.estadoSelecionado === null ||
+        pub.cad_estados?.some((estado) => estado.id === this.estadoSelecionado);
+      return hojeStr >= dtInicioStr && hojeStr <= dtFimStr && pertenceAoEstado;
     });
 
     this.publicidadesFuturas = this.todasPublicidades.filter((pub) => {
       const dtInicioStr = new Date(pub.dt_inicio).toISOString().split('T')[0];
-      return dtInicioStr > hojeStr;
+      const pertenceAoEstado =
+        this.estadoSelecionado === 0 ||
+        this.estadoSelecionado === null ||
+        pub.cad_estados?.some((estado) => estado.id === this.estadoSelecionado);
+      return dtInicioStr > hojeStr && pertenceAoEstado;
     });
   }
-
   abrirModal() {
     this.publicidadeEditando = null;
     this.modalVisivel = true;
@@ -75,37 +82,36 @@ export class HomeComponent {
     }
   }
 
-  selecionarEstado() {
-    if (this.estadoSelecionado === 0 || this.estadoSelecionado === null) {
-      this.publicidades = this.todasPublicidades;
-    } else {
-      const idEstado = this.estadoSelecionado;
-
-      this.publicidades = this.todasPublicidades.filter((pub) =>
-        pub.cad_estados?.some((estado) => estado.id === idEstado)
-      );
-    }
+  selecionarEstado(event: any) {
+    this.estadoSelecionado = event.value;
+    this.filtrarPublicidadesPorData();
     this.buscarPublicidades();
   }
 
   buscarPublicidades() {
+    this.filtrarPublicidadesPorData();
     const termo = this.removerPipe.transform(this.buscarPublicidade);
 
-    this.publicidades = this.todasPublicidades.filter((pub) => {
-      const pertenceAoEstado =
-        this.estadoSelecionado === 0 ||
-        this.estadoSelecionado === null ||
-        pub.cad_estados?.some((estado) => estado.id === this.estadoSelecionado);
+    const filtrar = (lista: Publicidade[]): Publicidade[] => {
+      return lista.filter((pub) => {
+        const pertenceAoEstado =
+          this.estadoSelecionado === 0 ||
+          this.estadoSelecionado === null ||
+          pub.cad_estados?.some(
+            (estado) => estado.id === this.estadoSelecionado
+          );
 
-      if (!pertenceAoEstado) {
-        return false;
-      }
+        if (!pertenceAoEstado) return false;
 
-      const titulo = this.removerPipe.transform(pub.titulo);
-      const descricao = this.removerPipe.transform(pub.descricao);
+        const titulo = this.removerPipe.transform(pub.titulo);
+        const descricao = this.removerPipe.transform(pub.descricao);
 
-      return titulo.includes(termo) || descricao.includes(termo);
-    });
+        return titulo.includes(termo) || descricao.includes(termo);
+      });
+    };
+
+    this.publicidadesAtuais = filtrar(this.publicidadesAtuais);
+    this.publicidadesFuturas = filtrar(this.publicidadesFuturas);
   }
 
   carregarPublicidades() {
