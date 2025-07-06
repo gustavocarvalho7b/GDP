@@ -34,7 +34,17 @@
   </div>
   <div>
     <app-card-publicidade
-      *ngFor="let pub of publicidades"
+      *ngFor="let pub of publicidadesAtuais"
+      [publicidade]="pub"
+      class="card"
+      (editar)="editarPublicidade($event)"
+      (excluir)="excluirPublicidade($event)"
+    ></app-card-publicidade>
+  </div>
+  <div class="publicidadesFuturas">
+    <span class="outrasPublicidades">OUTRAS PUBLICIDADES</span>
+    <app-card-publicidade
+      *ngFor="let pub of publicidadesFuturas"
       [publicidade]="pub"
       class="card"
       (editar)="editarPublicidade($event)"

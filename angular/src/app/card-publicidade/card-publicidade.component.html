@@ -15,7 +15,7 @@
       <div class="direita">
         <span class="tagAtual" *ngIf="isAtual()">Publicidade atual</span>
         <div class="menu-opcoes" #botaoMenu (click)="overlay.toggle($event)">
-          <i class="pi pi-ellipsis-v"></i>
+          <i class="pi pi-ellipsis-v" style="cursor: pointer"></i>
         </div>
         <p-overlayPanel
           #overlay

@@ -18,6 +18,8 @@ export class HomeComponent {
   todasPublicidades: Publicidade[] = [];
   buscarPublicidade: string = '';
   publicidadeEditando: Publicidade | null = null;
+  publicidadesAtuais: Publicidade[] = [];
+  publicidadesFuturas: Publicidade[] = [];
 
   constructor(
     private publicidadeService: PublicidadeService,
@@ -29,6 +31,22 @@ export class HomeComponent {
     this.publicidadeService.selecionar().subscribe((dados) => {
       this.publicidades = dados;
       this.todasPublicidades = dados;
+      this.filtrarPublicidadesPorData();
+    });
+  }
+
+  filtrarPublicidadesPorData() {
+    const hojeStr = new Date().toISOString().split('T')[0];
+
+    this.publicidadesAtuais = this.todasPublicidades.filter((pub) => {
+      const dtInicioStr = new Date(pub.dt_inicio).toISOString().split('T')[0];
+      const dtFimStr = new Date(pub.dt_fim).toISOString().split('T')[0];
+      return hojeStr >= dtInicioStr && hojeStr <= dtFimStr;
+    });
+
+    this.publicidadesFuturas = this.todasPublicidades.filter((pub) => {
+      const dtInicioStr = new Date(pub.dt_inicio).toISOString().split('T')[0];
+      return dtInicioStr > hojeStr;
     });
   }
 
@@ -42,6 +60,7 @@ export class HomeComponent {
     this.publicidadeService.selecionar().subscribe((dados) => {
       this.publicidades = dados;
       this.todasPublicidades = dados;
+      this.filtrarPublicidadesPorData();
     });
   }
 
@@ -93,6 +112,7 @@ export class HomeComponent {
     this.publicidadeService.selecionar().subscribe((dados) => {
       this.todasPublicidades = dados;
       this.buscarPublicidades();
+      this.filtrarPublicidadesPorData();
     });
   }
 

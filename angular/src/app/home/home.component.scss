@@ -33,6 +33,10 @@ app-card-publicidade.card {
   display: block;  
 }
 
+app-card-publicidade.card:last-child {
+  margin-bottom: 4px;
+}
+
 ::ng-deep .input .p-dropdown {
   width: 415px !important;
 }
@@ -45,31 +49,10 @@ app-card-publicidade.card {
   width: 100%;
 }
 
-/* Para todos os elementos com scroll */
-.corpo {
-  overflow: auto;
-
-  /* Firefox */
-  scrollbar-width: thin;         /* torna o scroll fino */
-  scrollbar-color: #999 transparent;  /* cor do thumb e do fundo */
-}
-
-/* Chrome, Edge, Safari */
-.corpo::-webkit-scrollbar {
-  width: 6px;   /* barra vertical */
-  height: 6px;  /* barra horizontal */
-}
-
-.corpo::-webkit-scrollbar-track {
-  background: transparent; /* fundo da barra */
-}
-
-.corpo::-webkit-scrollbar-thumb {
-  background-color: #999;
-  border-radius: 0;         /* sem borda arredondada → quadrado */
-  border: none;
-}
-
-.corpo::-webkit-scrollbar-thumb:hover {
-  background-color: #666; /* escurece no hover */
+.outrasPublicidades {
+  display: block;
+  margin-bottom: 20px;
+  font-family: 'Open Sans', sans-serif;
+  color: #6C757D;
+  font-weight: 500;
 }
