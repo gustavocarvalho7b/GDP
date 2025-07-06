@@ -20,4 +20,7 @@ export class PublicidadeService {
   atualizarPublicidade(id: number, publicidade: any) {
     return this.http.put(`${this.url}/${id}`, publicidade);
   }
+  excluirPublicidade(id: number): Observable<any> {
+    return this.http.delete(`${this.url}/${id}`);
+  }
 }

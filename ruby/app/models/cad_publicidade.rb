@@ -1,5 +1,5 @@
 class CadPublicidade < ApplicationRecord
-  has_many :cad_publicidade_estados, foreign_key: :id_publicidade
+  has_many :cad_publicidade_estados, foreign_key: :id_publicidade, dependent: :destroy
   has_many :cad_estados, through: :cad_publicidade_estados
 
   def imagem_base64
@@ -10,8 +10,10 @@ class CadPublicidade < ApplicationRecord
   end
 
   def imagem_base64=(base64_str)
-    if base64_str.present?
-        self.imagem = Base64.decode64(base64_str.split(",").last)
+    if base64_str.blank?
+      self.imagem = nil
+    else
+      self.imagem = Base64.decode64(base64_str.split(",").last)
     end
   end
 

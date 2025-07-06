@@ -32,8 +32,14 @@ export class ModalNovaPublicidadeComponent {
         id_publicidade_estado:
           this.publicidade.cad_estados?.map((e) => e.id) || [],
       };
+
+      this.imagemPreview = this.publicidade?.imagem_base64 || null;
+      this.novaPublicidade.imagem_base64 = this.imagemPreview || '';
+      this.nomeImagem = '';
     } else {
       this.novaPublicidade = this.resetarPublicidade();
+      this.imagemPreview = null;
+      this.nomeImagem = '';
     }
   }
 
@@ -158,7 +164,7 @@ export class ModalNovaPublicidadeComponent {
   removerImagem(): void {
     this.imagemPreview = null;
     this.nomeImagem = '';
-    this.imagemPreview = this.novaPublicidade!.imagem_base64 || null;
+    this.novaPublicidade.imagem_base64 = '';
   }
 
   salvarPublicidade(): void {

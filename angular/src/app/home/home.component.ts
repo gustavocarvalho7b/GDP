@@ -33,6 +33,7 @@ export class HomeComponent {
   }
 
   abrirModal() {
+    this.publicidadeEditando = null;
     this.modalVisivel = true;
   }
 
@@ -88,13 +89,33 @@ export class HomeComponent {
     });
   }
 
+  carregarPublicidades() {
+    this.publicidadeService.selecionar().subscribe((dados) => {
+      this.todasPublicidades = dados;
+      this.buscarPublicidades();
+    });
+  }
+
   editarPublicidade(publicidade: Publicidade) {
     this.publicidadeEditando = { ...publicidade };
     this.modalVisivel = true;
   }
 
-  excluirPublicidade(publicidade: any) {
-    // Aqui vai a lógica para exclusão
-    console.log('Excluir publicidade:', publicidade);
+  excluirPublicidade(publicidade: Publicidade): void {
+    console.log('Tentando excluir ID:', publicidade.id);
+    if (!publicidade.id) {
+      console.warn('ID da publicidade não definido!');
+      return;
+    }
+
+    this.publicidadeService.excluirPublicidade(publicidade.id).subscribe({
+      next: () => {
+        console.log('Publicidade excluída com sucesso!');
+        this.carregarPublicidades();
+      },
+      error: (err) => {
+        console.error('Erro ao excluir publicidade:', err);
+      },
+    });
   }
 }
