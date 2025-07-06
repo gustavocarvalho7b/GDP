@@ -1,57 +1,147 @@
-# db/seeds.rb
+require 'date'
+require 'base64'
 
-# Limpa os dados existentes (opcional, mas recomendado para testes)
+# Limpeza
 CadPublicidadeEstado.delete_all
 CadPublicidade.delete_all
 CadEstado.delete_all
 
-# Criação de estados
+# Criação dos estados
 estados = [
   { descricao: "São Paulo", sigla: "SP" },
   { descricao: "Rio de Janeiro", sigla: "RJ" },
   { descricao: "Minas Gerais", sigla: "MG" },
   { descricao: "Bahia", sigla: "BA" }
 ]
-
 estados = estados.map { |attrs| CadEstado.create!(attrs) }
+estados_by_sigla = estados.index_by(&:sigla)
 
-# Criação de publicidades
-publicidades = [
-  { titulo: "Promoção Verão", descricao: "Descontos incríveis para o verão", botao_link: "https://promo.verao.com", titulo_botao_link: "Aproveite", dt_inicio: Date.today - 10, dt_fim: Date.today + 20 },
-  { titulo: "Black Friday", descricao: "Ofertas imperdíveis Black Friday", botao_link: "https://blackfriday.com", titulo_botao_link: "Compre já", dt_inicio: Date.today - 30, dt_fim: Date.today - 25 },
-  { titulo: "Natal", descricao: "Presentes de Natal com descontos", botao_link: "https://natal.com", titulo_botao_link: "Veja ofertas", dt_inicio: Date.today + 30, dt_fim: Date.today + 60 },
-
-  # Novas publicidades
-  { titulo: "Carnaval", descricao: "Folia e descontos no Carnaval", botao_link: "https://carnaval.com", titulo_botao_link: "Confira", dt_inicio: Date.today + 10, dt_fim: Date.today + 25 },
-  { titulo: "Ano Novo", descricao: "Comece o ano economizando", botao_link: "https://anonovo.com", titulo_botao_link: "Ver ofertas", dt_inicio: Date.today - 5, dt_fim: Date.today + 5 },
-  { titulo: "Volta às Aulas", descricao: "Mochilas e materiais escolares em promoção", botao_link: "https://voltaasaulas.com", titulo_botao_link: "Comprar agora", dt_inicio: Date.today + 5, dt_fim: Date.today + 40 }
-]
-
-publicidades = publicidades.map { |attrs| CadPublicidade.create!(attrs) }
-
-# Associação publicidades <-> estados
-# Promoção Verão válida para SP e RJ
-CadPublicidadeEstado.create!(id_publicidade: publicidades[0].id, id_estado: estados[0].id)
-CadPublicidadeEstado.create!(id_publicidade: publicidades[0].id, id_estado: estados[1].id)
-
-# Black Friday válida para MG
-CadPublicidadeEstado.create!(id_publicidade: publicidades[1].id, id_estado: estados[2].id)
-
-# Natal válida para BA e SP
-CadPublicidadeEstado.create!(id_publicidade: publicidades[2].id, id_estado: estados[3].id)
-CadPublicidadeEstado.create!(id_publicidade: publicidades[2].id, id_estado: estados[0].id)
-
-# Carnaval válida para RJ e BA
-CadPublicidadeEstado.create!(id_publicidade: publicidades[3].id, id_estado: estados[1].id)
-CadPublicidadeEstado.create!(id_publicidade: publicidades[3].id, id_estado: estados[3].id)
-
-# Ano Novo válida para todos os estados
-estados.each do |estado|
-  CadPublicidadeEstado.create!(id_publicidade: publicidades[4].id, id_estado: estado.id)
+# Helper para intervalo de datas
+def intervalo(inicio_em_dias, fim_em_dias)
+  {
+    dt_inicio: Date.today + inicio_em_dias,
+    dt_fim: Date.today + fim_em_dias
+  }
 end
 
-# Volta às Aulas válida para SP e MG
-CadPublicidadeEstado.create!(id_publicidade: publicidades[5].id, id_estado: estados[0].id)
-CadPublicidadeEstado.create!(id_publicidade: publicidades[5].id, id_estado: estados[2].id)
+# Helper para carregar imagem base64
+def carregar_imagem(nome_arquivo)
+  path = Rails.root.join("db/seeds/images/#{nome_arquivo}")
+  return nil unless File.exist?(path)
+
+  conteudo = File.open(path, 'rb') { |f| f.read }
+  "data:image/jpeg;base64,#{Base64.strict_encode64(conteudo)}"
+end
+
+# Publicidades com mapeamento de imagem
+publicidades = [
+  {
+    titulo: "Promoção Verão",
+    imagem: "verao.jpg",
+    descricao: "Descontos incríveis para o verão",
+    botao_link: "https://promo.verao.com",
+    titulo_botao_link: "Aproveite",
+    estados: %w[SP RJ],
+    **intervalo(0, 20)
+  },
+  {
+    titulo: "Natal Antecipado",
+    imagem: "natal.jpg",
+    descricao: "Compre seus presentes de Natal com desconto",
+    botao_link: "https://natal.com",
+    titulo_botao_link: "Ver ofertas",
+    estados: %w[MG BA],
+    **intervalo(10, 40)
+  },
+  {
+    titulo: "Volta às Aulas",
+    imagem: "aula.jpg",
+    descricao: "Materiais escolares com super desconto",
+    botao_link: "https://voltaasaulas.com",
+    titulo_botao_link: "Comprar agora",
+    estados: %w[SP MG],
+    **intervalo(25, 60)
+  },
+  {
+    titulo: "Férias de Julho",
+    imagem: "ferias.jpg",
+    descricao: "Pacotes de viagens promocionais",
+    botao_link: "https://ferias.com",
+    titulo_botao_link: "Garanta já",
+    estados: %w[RJ BA],
+    **intervalo(30, 50)
+  },
+  {
+    titulo: "Ano Novo Econômico",
+    imagem: "economia.jpg",
+    descricao: "Comece o ano com economia",
+    botao_link: "https://anonovo.com",
+    titulo_botao_link: "Confira agora",
+    estados: %w[SP BA],
+    **intervalo(65, 85)
+  },
+  {
+    titulo: "Carnaval de Ofertas",
+    imagem: "carnaval.jpg",
+    descricao: "Descontos para curtir o Carnaval",
+    botao_link: "https://carnaval.com",
+    titulo_botao_link: "Aproveitar",
+    estados: %w[MG RJ],
+    **intervalo(70, 100)
+  },
+  {
+    titulo: "Semana da Economia SP",
+    imagem: "semana.jpg",
+    descricao: "Ofertas exclusivas para moradores de São Paulo",
+    botao_link: "https://economiasp.com",
+    titulo_botao_link: "Confira",
+    estados: %w[SP],
+    **intervalo(90, 110)
+  },
+  {
+    titulo: "Bahia Tech Week",
+    imagem: "bahia.jpg",
+    descricao: "Feira de tecnologia e inovação na Bahia",
+    botao_link: "https://bahiatechweek.com",
+    titulo_botao_link: "Saiba mais",
+    estados: %w[BA],
+    **intervalo(95, 120)
+  },
+  {
+    titulo: "Mega Campanha Nacional",
+    imagem: "mega.jpg",
+    descricao: "Promoções válidas em todo o Brasil!",
+    botao_link: "https://megacampanha.com",
+    titulo_botao_link: "Aproveite agora",
+    estados: %w[SP RJ MG BA],
+    **intervalo(120, 140)
+  },
+  {
+    titulo: "Outubro de Ofertas",
+    imagem: "outubro.jpg",
+    descricao: "Comece o mês economizando",
+    botao_link: "https://outubroofertas.com",
+    titulo_botao_link: "Ver promoções",
+    estados: %w[MG BA],
+    **intervalo(0, 10)
+  }
+]
+
+publicidades.each do |attrs|
+  estado_siglas = attrs.delete(:estados)
+  nome_imagem = attrs.delete(:imagem)
+
+  pub = CadPublicidade.create!(
+    **attrs,
+    imagem_base64: carregar_imagem(nome_imagem)
+  )
+
+  estado_siglas.each do |sigla|
+    CadPublicidadeEstado.create!(
+      id_publicidade: pub.id,
+      id_estado: estados_by_sigla[sigla].id
+    )
+  end
+end
 
 puts "Seeds carregados com sucesso!"

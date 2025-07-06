@@ -15,8 +15,9 @@ if [ "$RAILS_ENV" = "development" ]; then
     echo "Banco ainda não existe. Executando db:setup..."
     ./bin/rails db:setup
   else
-    echo "Banco já existente. Executando db:migrate..."
+    echo "Banco já existente. Executando db:migrate (sem db:seed)..."
     ./bin/rails db:migrate
+    # Remover ou comentar esta linha para não rodar seed sempre
     ./bin/rails db:seed
   fi
 else
