@@ -27,8 +27,8 @@ export class ModalNovaPublicidadeComponent {
     if (this.publicidade) {
       this.novaPublicidade = {
         ...this.publicidade,
-        dt_inicio: new Date(this.publicidade.dt_inicio),
-        dt_fim: new Date(this.publicidade.dt_fim),
+        dt_inicio: this.dataLocal(this.publicidade.dt_inicio as any),
+        dt_fim: this.dataLocal(this.publicidade.dt_fim as any),
         id_publicidade_estado:
           this.publicidade.cad_estados?.map((e) => e.id) || [],
       };
@@ -169,9 +169,19 @@ export class ModalNovaPublicidadeComponent {
 
   salvarPublicidade(): void {
     const { id, cad_estados, ...dadosParaEnvio } = this.novaPublicidade;
+
+    const formatDateToString = (date: Date): string => {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    };
+
     const payload = {
       cad_publicidade: {
         ...dadosParaEnvio,
+        dt_inicio: formatDateToString(this.novaPublicidade.dt_inicio),
+        dt_fim: formatDateToString(this.novaPublicidade.dt_fim),
       },
       imagem_base64: this.novaPublicidade.imagem_base64,
     };
@@ -192,5 +202,10 @@ export class ModalNovaPublicidadeComponent {
         console.error('Erro ao salvar/atualizar publicidade:', err);
       },
     });
+  }
+
+  dataLocal(dateStr: string): Date {
+    const [year, month, day] = dateStr.split('-').map(Number);
+    return new Date(year, month - 1, day);
   }
 }

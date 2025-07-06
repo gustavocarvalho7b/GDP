@@ -23,18 +23,16 @@ export class CardPublicidadeComponent {
   isAtual(): boolean {
     if (!this.publicidade.dt_inicio || !this.publicidade.dt_fim) return false;
 
-    // Criar objeto com horário de Brasília (UTC-3)
-    const now = new Date();
-    const dataAtual = new Date(
-      now.getUTCFullYear(),
-      now.getUTCMonth(),
-      now.getUTCDate()
-    );
+    const hoje = new Date();
+    const hojeStr = hoje.toISOString().split('T')[0];
 
-    const inicio = new Date(this.publicidade.dt_inicio);
-    const fim = new Date(this.publicidade.dt_fim);
+    const dtInicio = new Date(this.publicidade.dt_inicio);
+    const dtInicioStr = dtInicio.toISOString().split('T')[0];
 
-    return dataAtual >= inicio && dataAtual <= fim;
+    const dtFim = new Date(this.publicidade.dt_fim);
+    const dtFimStr = dtFim.toISOString().split('T')[0];
+
+    return hojeStr >= dtInicioStr && hojeStr <= dtFimStr;
   }
 
   emitirEditar() {
