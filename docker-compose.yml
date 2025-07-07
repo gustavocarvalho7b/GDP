@@ -36,16 +36,16 @@ services:
     depends_on:
       - db
 
-  frontend:
-    build:
-      context: ./angular
-      dockerfile: Dockerfile
-    image: angular-frontend
-    container_name: angular-frontend
-    ports:
-      - "8080:80"
-    depends_on:
-      - backend
+  # frontend:
+  #   build:
+  #     context: ./angular
+  #     dockerfile: Dockerfile
+  #   image: angular-frontend
+  #   container_name: angular-frontend
+  #   ports:
+  #     - "8080:80"
+  #   depends_on:
+  #     - backend
 
 volumes:
   db_data:

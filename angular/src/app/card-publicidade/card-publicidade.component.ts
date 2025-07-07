@@ -20,7 +20,6 @@ export class CardPublicidadeComponent {
   @Output() editar = new EventEmitter<Publicidade>();
   @Output() excluir = new EventEmitter<Publicidade>();
 
-  publicidadeService: any;
   isAtual(): boolean {
     if (!this.publicidade.dt_inicio || !this.publicidade.dt_fim) return false;
 
@@ -44,5 +43,4 @@ export class CardPublicidadeComponent {
     this.excluir.emit(this.publicidade);
   }
 
-  @ViewChild('overlay') overlay!: OverlayPanel;
 }

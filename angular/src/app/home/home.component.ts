@@ -37,6 +37,12 @@ export class HomeComponent {
     });
   }
 
+  selecionarEstado(event: any) {
+    this.estadoSelecionado = event.value;
+    this.filtrarPublicidadesPorData();
+    this.buscarPublicidades();
+  }
+
   filtrarPublicidadesPorData() {
     const hojeStr = new Date().toISOString().split('T')[0];
 
@@ -82,12 +88,6 @@ export class HomeComponent {
         ];
       });
     }
-  }
-
-  selecionarEstado(event: any) {
-    this.estadoSelecionado = event.value;
-    this.filtrarPublicidadesPorData();
-    this.buscarPublicidades();
   }
 
   buscarPublicidades() {

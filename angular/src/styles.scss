@@ -3,13 +3,12 @@ body {
   margin: 0;
   padding: 0;
 }
-/* Firefox */
+
 * {
   scrollbar-width: thin;
   scrollbar-color: #999 transparent;
 }
 
-/* Chrome, Edge, Safari */
 *::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -21,7 +20,7 @@ body {
 
 *::-webkit-scrollbar-thumb {
   background-color: #999;
-  border-radius: 0; /* deixa quadrado */
+  border-radius: 0;
 }
 
 *::-webkit-scrollbar-thumb:hover {

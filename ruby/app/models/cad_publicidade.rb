@@ -47,7 +47,7 @@ class CadPublicidade < ApplicationRecord
       .distinct
 
     if conflitos.exists?
-      errors.add(:base, "Já existe uma publicidade com conflito de datas para um dos estados selecionados.")
+      errors.add(:base, "Já existe uma publicidade no estado selecionado com essa dentro dessa data de vigência.")
     end
   end
 end
