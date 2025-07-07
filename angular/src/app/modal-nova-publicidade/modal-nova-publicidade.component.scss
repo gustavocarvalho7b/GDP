@@ -4,18 +4,17 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.1); // escurece fundo
+    background-color: rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000; // garantir que fique acima
+    z-index: 1000;
     padding: 1rem;
 }
 
 .modal {
     background-color: var(--surface-overlay);
     border: 1px solid var(--surface-200);
-
     // width: max-content;
     height: 100%;
     border-radius: 8px;
@@ -38,8 +37,6 @@
     border-bottom: 1px solid #ccc;
     height: 75px;
     align-items: center;
-    margin-left: -24px;
-    margin-right: -24px;
     padding: 24px;
 }
 

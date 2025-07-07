@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Publicidade } from '../models/publicidade';
 import { EstadoService } from '../services/estado.service';
 import { Estados } from '../models/estados';
@@ -44,26 +44,39 @@ export class HomeComponent {
   }
 
   filtrarPublicidadesPorData() {
-    const hojeStr = new Date().toISOString().split('T')[0];
+    const hoje = new Date();
 
-    this.publicidadesAtuais = this.todasPublicidades.filter((pub) => {
-      const dtInicioStr = new Date(pub.dt_inicio).toISOString().split('T')[0];
-      const dtFimStr = new Date(pub.dt_fim).toISOString().split('T')[0];
-      const pertenceAoEstado =
-        this.estadoSelecionado === 0 ||
-        this.estadoSelecionado === null ||
-        pub.cad_estados?.some((estado) => estado.id === this.estadoSelecionado);
-      return hojeStr >= dtInicioStr && hojeStr <= dtFimStr && pertenceAoEstado;
-    });
+    this.publicidadesAtuais = this.todasPublicidades
+      .filter((pub) => {
+        const dtInicio = new Date(pub.dt_inicio);
+        const dtFim = new Date(pub.dt_fim);
+        const pertenceAoEstado =
+          this.estadoSelecionado === 0 ||
+          this.estadoSelecionado === null ||
+          pub.cad_estados?.some(
+            (estado) => estado.id === this.estadoSelecionado
+          );
+        return dtInicio <= hoje && dtFim >= hoje && pertenceAoEstado;
+      })
+      .sort(
+        (a, b) => new Date(a.dt_fim).getTime() - new Date(b.dt_fim).getTime()
+      );
 
-    this.publicidadesFuturas = this.todasPublicidades.filter((pub) => {
-      const dtInicioStr = new Date(pub.dt_inicio).toISOString().split('T')[0];
-      const pertenceAoEstado =
-        this.estadoSelecionado === 0 ||
-        this.estadoSelecionado === null ||
-        pub.cad_estados?.some((estado) => estado.id === this.estadoSelecionado);
-      return dtInicioStr > hojeStr && pertenceAoEstado;
-    });
+    this.publicidadesFuturas = this.todasPublicidades
+      .filter((pub) => {
+        const dtInicio = new Date(pub.dt_inicio);
+        const pertenceAoEstado =
+          this.estadoSelecionado === 0 ||
+          this.estadoSelecionado === null ||
+          pub.cad_estados?.some(
+            (estado) => estado.id === this.estadoSelecionado
+          );
+        return dtInicio > hoje && pertenceAoEstado;
+      })
+      .sort(
+        (a, b) =>
+          new Date(a.dt_inicio).getTime() - new Date(b.dt_inicio).getTime()
+      );
   }
   abrirModal() {
     this.publicidadeEditando = null;
@@ -141,7 +154,7 @@ export class HomeComponent {
         this.messageService.add({
           severity: 'info',
           summary: 'Encerrada',
-          detail: 'A publicidade foi Encerrada com sucesso',
+          detail: 'A publicidade foi encerrada com sucesso',
           life: 3000,
         });
         this.publicidades = this.publicidades.filter(

@@ -1,8 +1,15 @@
 class CadPublicidade < ApplicationRecord
-  has_many :cad_publicidade_estados, foreign_key: :id_publicidade,inverse_of: :cad_publicidade, dependent: :destroy
+  has_many :cad_publicidade_estados, foreign_key: :id_publicidade, inverse_of: :cad_publicidade, dependent: :destroy
   has_many :cad_estados, through: :cad_publicidade_estados
 
+  validate :deve_ter_pelo_menos_um_estado
   validate :verifica_conflito_de_datas
+  validates :titulo, presence: { message: " obrigatório" }
+  validates :imagem, presence: { message: " obrigatória" }
+  validates :descricao, presence: { message: " obrigatória" }
+  validates :botao_link, presence: { message: " obrigatório" }
+  validates :titulo_botao_link, presence: { message: " obrigatório" }
+
 
   def imagem_base64
     return nil unless imagem.present?
@@ -47,7 +54,13 @@ class CadPublicidade < ApplicationRecord
       .distinct
 
     if conflitos.exists?
-      errors.add(:base, "Já existe uma publicidade no estado selecionado com essa dentro dessa data de vigência.")
+      errors.add(:base, "Já existe uma publicidade no estado selecionado com a mesma data de vigência.")
+    end
+  end
+
+  def deve_ter_pelo_menos_um_estado
+    if cad_estados.empty?
+      errors.add(:base, "A publicidade deve estar vinculada a pelo menos um estado.")
     end
   end
 end

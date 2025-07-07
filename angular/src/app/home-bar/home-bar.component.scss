@@ -18,7 +18,28 @@
 }
 
 .topbar .right .avatar {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     border-radius: 25%;
+    margin-top: 25%;
+    cursor: pointer;
+}
+
+.menu-opcoes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  min-width: 120px;
+}
+
+.menu-opcoes p {
+  margin: 0;
+  cursor: pointer;
+  padding: 4px;
+  transition: background 0.2s;
+}
+
+.menu-opcoes p:hover {
+  background: #f0f0f0;
 }

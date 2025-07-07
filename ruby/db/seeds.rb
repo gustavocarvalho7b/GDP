@@ -11,7 +11,10 @@ estados = [
   { descricao: "São Paulo", sigla: "SP" },
   { descricao: "Rio de Janeiro", sigla: "RJ" },
   { descricao: "Minas Gerais", sigla: "MG" },
-  { descricao: "Bahia", sigla: "BA" }
+  { descricao: "Bahia", sigla: "BA" },
+  { descricao: "Goiás", sigla: "GO" },
+  { descricao: "Sergipe", sigla: "SE" },
+  { descricao: "Tocantins", sigla: "TO" }
 ]
 estados = estados.map { |attrs| CadEstado.create!(attrs) }
 estados_by_sigla = estados.index_by(&:sigla)
@@ -131,10 +134,11 @@ publicidades.each do |attrs|
   estado_siglas = attrs.delete(:estados)
   nome_imagem = attrs.delete(:imagem)
 
-  pub = CadPublicidade.create!(
+  pub = CadPublicidade.new(
     **attrs,
     imagem_base64: carregar_imagem(nome_imagem)
   )
+  pub.save(validate: false)
 
   estado_siglas.each do |sigla|
     CadPublicidadeEstado.create!(

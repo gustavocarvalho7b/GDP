@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  Renderer2,
+} from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { Publicidade } from '../models/publicidade';
 import { PublicidadeService } from '../services/publicidade.service';
@@ -22,49 +28,14 @@ export class ModalNovaPublicidadeComponent {
   nomeImagem: string = '';
   estados: Estados[] = [];
   estadosContemplados: Estados[] = [];
-
   novaPublicidade: Publicidade = this.resetarPublicidade();
-
-  ngOnChanges(): void {
-    if (this.publicidade) {
-      this.novaPublicidade = {
-        ...this.publicidade,
-        dt_inicio: this.dataLocal(this.publicidade.dt_inicio as any),
-        dt_fim: this.dataLocal(this.publicidade.dt_fim as any),
-        id_publicidade_estado:
-          this.publicidade.cad_estados?.map((e) => e.id) || [],
-      };
-
-      this.imagemPreview = this.publicidade?.imagem_base64 || null;
-      this.novaPublicidade.imagem_base64 = this.imagemPreview || '';
-      this.nomeImagem = '';
-    } else {
-      this.novaPublicidade = this.resetarPublicidade();
-      this.imagemPreview = null;
-      this.nomeImagem = '';
-    }
-  }
-
-  resetarPublicidade(): Publicidade {
-    return {
-      id: 0,
-      titulo: '',
-      descricao: '',
-      imagem_base64: '',
-      titulo_botao_link: '',
-      botao_link: '',
-      dt_inicio: new Date(),
-      dt_fim: new Date(),
-      id_publicidade_estado: [],
-      cad_estados: [],
-    };
-  }
 
   constructor(
     private primengConfig: PrimeNGConfig,
     private publicidadeService: PublicidadeService,
     private estadoService: EstadoService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private renderer: Renderer2
   ) {}
 
   ngOnInit() {
@@ -114,6 +85,7 @@ export class ModalNovaPublicidadeComponent {
       dateFormat: 'dd/mm/yy',
       weekHeader: 'Sem',
     });
+
     this.estadoService.selecionar().subscribe({
       next: (res) => {
         this.estados = res;
@@ -122,6 +94,51 @@ export class ModalNovaPublicidadeComponent {
         console.error('Erro ao buscar estados:', err);
       },
     });
+  }
+
+  ngOnChanges(): void {
+    if (this.publicidade) {
+      this.novaPublicidade = {
+        ...this.publicidade,
+        dt_inicio: this.dataLocal(this.publicidade.dt_inicio as any),
+        dt_fim: this.dataLocal(this.publicidade.dt_fim as any),
+        id_publicidade_estado:
+          this.publicidade.cad_estados?.map((e) => e.id) || [],
+      };
+
+      this.imagemPreview = this.publicidade?.imagem_base64 || null;
+      this.novaPublicidade.imagem_base64 = this.imagemPreview || '';
+      this.nomeImagem = '';
+    } else {
+      this.novaPublicidade = this.resetarPublicidade();
+      this.imagemPreview = null;
+      this.nomeImagem = '';
+    }
+
+    if (this.visivel) {
+      this.renderer.addClass(document.body, 'no-scroll');
+    } else {
+      this.renderer.removeClass(document.body, 'no-scroll');
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.renderer.removeClass(document.body, 'no-scroll');
+  }
+
+  resetarPublicidade(): Publicidade {
+    return {
+      id: 0,
+      titulo: '',
+      descricao: '',
+      imagem_base64: '',
+      titulo_botao_link: '',
+      botao_link: '',
+      dt_inicio: new Date(),
+      dt_fim: new Date(),
+      id_publicidade_estado: [],
+      cad_estados: [],
+    };
   }
 
   fechar() {
@@ -137,8 +154,6 @@ export class ModalNovaPublicidadeComponent {
       const reader = new FileReader();
       reader.onload = () => {
         this.imagemPreview = reader.result as string;
-
-        // salva no objeto que será enviado
         this.novaPublicidade!.imagem_base64 = this.imagemPreview;
       };
       reader.readAsDataURL(file);
@@ -204,17 +219,37 @@ export class ModalNovaPublicidadeComponent {
           detail: 'Publicação salva com sucesso',
           life: 3000,
         });
-        console.log('Publicidade salva/atualizada com sucesso!');
         this.aoFechar.emit();
       },
       error: (err) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Erro!',
-          detail: 'Falha ao salvar publicação',
-          life: 3000,
-        });
-        console.error('Erro ao salvar/atualizar publicidade:', err);
+        console.log('Erro no backend:', err.error);
+
+        const erros = err.error;
+
+        if (Array.isArray(erros)) {
+          erros.forEach((msg: string) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erro',
+              detail: msg,
+              life: 4000,
+            });
+          });
+        } else if (typeof err.error === 'string') {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erro',
+            detail: err.error,
+            life: 4000,
+          });
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erro',
+            detail: 'Falha ao salvar publicação.',
+            life: 4000,
+          });
+        }
       },
     });
   }

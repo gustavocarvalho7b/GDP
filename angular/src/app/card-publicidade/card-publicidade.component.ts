@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  ViewChild,
-} from '@angular/core';
-import { OverlayPanel } from 'primeng/overlaypanel';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Publicidade } from '../models/publicidade';
 
 @Component({
@@ -42,5 +35,4 @@ export class CardPublicidadeComponent {
   emitirExcluir() {
     this.excluir.emit(this.publicidade);
   }
-
 }

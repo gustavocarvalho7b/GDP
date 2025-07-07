@@ -3,6 +3,17 @@
     <img src="../../assets/embras.png" class="embras" />
   </div>
   <div class="right">
-    <img src="../../assets/avatar.jpg" class="avatar">
+    <img
+      src="../../assets/avatar.jpg"
+      class="avatar"
+      (click)="overlay.toggle($event)"
+    />
+    <p-overlayPanel #overlay>
+      <div class="menu-opcoes">
+        <p (click)="verPerfil()">Meu Perfil</p>
+        <p (click)="verPerfil()">Cadastrar Estados</p>
+        <p (click)="verPerfil()">Sair</p>
+      </div>
+    </p-overlayPanel>
   </div>
 </div>
