@@ -23,22 +23,19 @@ class CadPublicidadesController < ApplicationController
 
   # POST /cad_publicidades
   def create
-    @cad_publicidade = CadPublicidade.new(cad_publicidade_params)
+    @cad_publicidade = CadPublicidade.new(cad_publicidade_params.except(:id_publicidade_estado))
+
+    # Associa os estados antes do save
+    if params[:cad_publicidade][:id_publicidade_estado].present?
+      estados = CadEstado.where(id: params[:cad_publicidade][:id_publicidade_estado])
+      @cad_publicidade.cad_estados = estados
+    end
 
     if @cad_publicidade.save
-      # associa estados
-      if params[:cad_publicidade][:id_publicidade_estado].present?
-        params[:cad_publicidade][:id_publicidade_estado].each do |estado_id|
-          CadPublicidadeEstado.create!(
-            id_publicidade: @cad_publicidade.id,
-            id_estado: estado_id
-          )
-        end
-      end
-
       render json: @cad_publicidade.as_json(methods: [ :imagem_base64 ], except: [ :imagem ]), status: :created
     else
-      render json: @cad_publicidade.errors, status: :unprocessable_entity
+      Rails.logger.debug "❌ Erros ao salvar publicidade: #{@cad_publicidade.errors.full_messages}"
+      render json: @cad_publicidade.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -56,7 +53,7 @@ class CadPublicidadesController < ApplicationController
         end
       end
 
-      render json: @cad_publicidade.as_json(methods: [:imagem_base64], except: [:imagem])
+      render json: @cad_publicidade.as_json(methods: [ :imagem_base64 ], except: [ :imagem ])
     else
       render json: @cad_publicidade.errors, status: :unprocessable_entity
     end

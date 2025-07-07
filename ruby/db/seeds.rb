@@ -51,7 +51,7 @@ publicidades = [
     botao_link: "https://natal.com",
     titulo_botao_link: "Ver ofertas",
     estados: %w[MG BA],
-    **intervalo(10, 40)
+    **intervalo(21, 50)
   },
   {
     titulo: "Volta às Aulas",
@@ -60,7 +60,7 @@ publicidades = [
     botao_link: "https://voltaasaulas.com",
     titulo_botao_link: "Comprar agora",
     estados: %w[SP MG],
-    **intervalo(25, 60)
+    **intervalo(51, 75)
   },
   {
     titulo: "Férias de Julho",
@@ -69,7 +69,7 @@ publicidades = [
     botao_link: "https://ferias.com",
     titulo_botao_link: "Garanta já",
     estados: %w[RJ BA],
-    **intervalo(30, 50)
+    **intervalo(76, 95)
   },
   {
     titulo: "Ano Novo Econômico",
@@ -78,7 +78,7 @@ publicidades = [
     botao_link: "https://anonovo.com",
     titulo_botao_link: "Confira agora",
     estados: %w[SP BA],
-    **intervalo(65, 85)
+    **intervalo(96, 115)
   },
   {
     titulo: "Carnaval de Ofertas",
@@ -87,7 +87,7 @@ publicidades = [
     botao_link: "https://carnaval.com",
     titulo_botao_link: "Aproveitar",
     estados: %w[MG RJ],
-    **intervalo(70, 100)
+    **intervalo(116, 135)
   },
   {
     titulo: "Semana da Economia SP",
@@ -96,7 +96,7 @@ publicidades = [
     botao_link: "https://economiasp.com",
     titulo_botao_link: "Confira",
     estados: %w[SP],
-    **intervalo(90, 110)
+    **intervalo(136, 150)
   },
   {
     titulo: "Bahia Tech Week",
@@ -105,7 +105,7 @@ publicidades = [
     botao_link: "https://bahiatechweek.com",
     titulo_botao_link: "Saiba mais",
     estados: %w[BA],
-    **intervalo(95, 120)
+    **intervalo(151, 170)
   },
   {
     titulo: "Mega Campanha Nacional",
@@ -114,7 +114,7 @@ publicidades = [
     botao_link: "https://megacampanha.com",
     titulo_botao_link: "Aproveite agora",
     estados: %w[SP RJ MG BA],
-    **intervalo(120, 140)
+    **intervalo(171, 190)
   },
   {
     titulo: "Outubro de Ofertas",
@@ -123,7 +123,7 @@ publicidades = [
     botao_link: "https://outubroofertas.com",
     titulo_botao_link: "Ver promoções",
     estados: %w[MG BA],
-    **intervalo(0, 10)
+    **intervalo(191, 210)
   }
 ]
 

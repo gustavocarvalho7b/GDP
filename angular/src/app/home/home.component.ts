@@ -144,8 +144,6 @@ export class HomeComponent {
           detail: 'A publicidade foi Encerrada com sucesso',
           life: 3000,
         });
-
-        // Atualize a lista de publicidades, se necessário:
         this.publicidades = this.publicidades.filter(
           (p) => p.id !== publicidade.id
         );
@@ -156,7 +154,7 @@ export class HomeComponent {
         this.messageService.add({
           severity: 'error',
           summary: 'Erro ao excluir',
-          detail: 'Não foi possível excluir a publicidade 😢',
+          detail: 'Não foi possível encerrar a publicidade',
           life: 3000,
         });
         console.error('Erro ao excluir publicidade:', err);
@@ -169,14 +167,14 @@ export class HomeComponent {
       this.messageService.add({
         severity: 'success',
         summary: 'Sucesso!',
-        detail: 'Publicação salva com sucesso 😄',
+        detail: 'Publicação salva com sucesso',
         life: 3000,
       });
     } else {
       this.messageService.add({
         severity: 'error',
         summary: 'Erro!',
-        detail: 'Não foi possível salvar a publicação 😢',
+        detail: 'Não foi possível salvar a publicação',
         life: 3000,
       });
     }

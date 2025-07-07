@@ -1,6 +1,8 @@
 class CadPublicidade < ApplicationRecord
-  has_many :cad_publicidade_estados, foreign_key: :id_publicidade, dependent: :destroy
+  has_many :cad_publicidade_estados, foreign_key: :id_publicidade,inverse_of: :cad_publicidade, dependent: :destroy
   has_many :cad_estados, through: :cad_publicidade_estados
+
+  validate :verifica_conflito_de_datas
 
   def imagem_base64
     return nil unless imagem.present?
@@ -27,6 +29,25 @@ class CadPublicidade < ApplicationRecord
       "image/jpeg"
     else
       "application/octet-stream"
+    end
+  end
+
+  def verifica_conflito_de_datas
+    return if dt_inicio.blank? || dt_fim.blank?
+
+    estado_ids = cad_estados.map(&:id)
+
+    return if estado_ids.blank?
+
+    conflitos = CadPublicidade
+      .joins(:cad_publicidade_estados)
+      .where(cad_publicidade_estados: { id_estado: estado_ids })
+      .where.not(id: id)
+      .where("cad_publicidades.dt_inicio <= ? AND cad_publicidades.dt_fim >= ?", dt_fim, dt_inicio)
+      .distinct
+
+    if conflitos.exists?
+      errors.add(:base, "Já existe uma publicidade com conflito de datas para um dos estados selecionados.")
     end
   end
 end
