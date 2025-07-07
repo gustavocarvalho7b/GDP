@@ -34,7 +34,7 @@ class CadPublicidadesController < ApplicationController
     if @cad_publicidade.save
       render json: @cad_publicidade.as_json(methods: [ :imagem_base64 ], except: [ :imagem ]), status: :created
     else
-      Rails.logger.debug "❌ Erros ao salvar publicidade: #{@cad_publicidade.errors.full_messages}"
+      Rails.logger.debug " Erros ao salvar publicidade: #{@cad_publicidade.errors.full_messages}"
       render json: @cad_publicidade.errors.full_messages, status: :unprocessable_entity
     end
   end
