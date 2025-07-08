@@ -28,16 +28,16 @@
 .menu-opcoes {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 8px;
+  gap: 10px;
+  padding: 20px;
   min-width: 120px;
 }
 
 .menu-opcoes p {
   margin: 0;
   cursor: pointer;
-  padding: 4px;
-  transition: background 0.2s;
+  padding: 8px;
+  transition: background 0.1s;
 }
 
 .menu-opcoes p:hover {
