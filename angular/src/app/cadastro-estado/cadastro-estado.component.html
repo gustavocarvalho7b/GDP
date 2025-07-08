@@ -1,0 +1,12 @@
+<div class="form-container">
+  <label>
+    Descrição:
+    <input [(ngModel)]="estado.descricao" />
+  </label>
+  <label>
+    Sigla:
+    <input [(ngModel)]="estado.sigla" />
+  </label>
+  <button (click)="salvar()">Salvar</button>
+  <button (click)="cancelar()">Cancelar</button>
+</div>

@@ -6,10 +6,17 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrl: './home-bar.component.scss',
 })
 export class HomeBarComponent {
-  @Output() excluir = new EventEmitter<any>();
-  overlay: any;
+  mostrarCadastroEstado = false;
+
+  abrirCadastroEstado() {
+    this.mostrarCadastroEstado = !this.mostrarCadastroEstado;
+  }
 
   verPerfil() {
     console.log('');
+  }
+
+  resetarCadastroEstado() {
+    this.mostrarCadastroEstado = false;
   }
 }

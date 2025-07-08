@@ -14,4 +14,13 @@ export class EstadoService {
   selecionar(): Observable<Estados[]> {
     return this.http.get<Estados[]>(this.url);
   }
+  criarEstado(payload: any): Observable<any> {
+    return this.http.post(`${this.url}`, payload);
+  }
+  atualizarEstado(id: number, publicidade: any) {
+    return this.http.put(`${this.url}/${id}`, publicidade);
+  }
+  excluirEstado(id: number): Observable<any> {
+    return this.http.delete(`${this.url}/${id}`);
+  }
 }

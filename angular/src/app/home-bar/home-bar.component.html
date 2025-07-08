@@ -8,12 +8,17 @@
       class="avatar"
       (click)="overlay.toggle($event)"
     />
-    <p-overlayPanel #overlay>
+    <p-overlayPanel #overlay (onShow)="resetarCadastroEstado()">
       <div class="menu-opcoes">
         <p (click)="verPerfil()">Meu Perfil</p>
-        <p (click)="verPerfil()">Cadastrar Estados</p>
-        <p (click)="verPerfil()">Sair</p>
+        <p (click)="abrirCadastroEstado()">Cadastrar Estado</p>
       </div>
     </p-overlayPanel>
+    <div class="cadastro">
+      <app-cadastro-estado
+        *ngIf="mostrarCadastroEstado"
+        (fecharCadastro)="mostrarCadastroEstado = false"
+      ></app-cadastro-estado>
+    </div>
   </div>
 </div>

@@ -23,6 +23,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { CadastroEstadoComponent } from './cadastro-estado/cadastro-estado.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ToastModule } from 'primeng/toast';
     CardPublicidadeComponent,
     HomeComponent,
     ModalNovaPublicidadeComponent,
+    CadastroEstadoComponent,
   ],
   imports: [
     BrowserModule,
