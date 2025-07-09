@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
+import { OverlayPanel } from 'primeng/overlaypanel';
 
 @Component({
   selector: 'app-home-bar',
@@ -8,13 +9,12 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class HomeBarComponent {
   mostrarCadastroEstado = false;
 
-  abrirCadastroEstado() {
+  abrirCadastroEstado(overlay: OverlayPanel) {
+    overlay.hide();
     this.mostrarCadastroEstado = !this.mostrarCadastroEstado;
   }
 
-  verPerfil() {
-    console.log('');
-  }
+  verPerfil() {}
 
   resetarCadastroEstado() {
     this.mostrarCadastroEstado = false;

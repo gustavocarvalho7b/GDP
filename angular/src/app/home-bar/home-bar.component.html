@@ -15,7 +15,7 @@
     <p-overlayPanel #overlay (onShow)="resetarCadastroEstado()">
       <div class="menu-opcoes">
         <p (click)="verPerfil()">Meu Perfil</p>
-        <p (click)="abrirCadastroEstado()">Cadastrar Estado</p>
+        <p (click)="abrirCadastroEstado(overlay)">Cadastrar Estado</p>
       </div>
     </p-overlayPanel>
     <div class="cadastro">
@@ -26,3 +26,4 @@
     </div>
   </div>
 </div>
+<p-toast></p-toast>

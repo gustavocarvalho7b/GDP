@@ -9,7 +9,7 @@ export class RemoverCaracteresEspeciaisPipe implements PipeTransform {
   transform(value: string): string {
     if (!value) return '';
     return value
-      .normalize('NFD') // separa caracteres acentuados
+      .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
       .replace(/[^a-zA-Z0-9\s]/g, '')
       .toLowerCase();

@@ -1,12 +1,16 @@
-<div class="form-container">
-  <label>
-    Descrição:
-    <input [(ngModel)]="estado.descricao" />
-  </label>
-  <label>
-    Sigla:
-    <input [(ngModel)]="estado.sigla" />
-  </label>
-  <button (click)="salvar()">Salvar</button>
-  <button (click)="cancelar()">Cancelar</button>
+<div class="overlay">
+  <div class="form-container">
+    <label>
+      Descrição:
+      <input [(ngModel)]="estado.descricao" />
+    </label>
+    <label>
+      Sigla:
+      <input [(ngModel)]="estado.sigla" />
+    </label>
+    <div class="botao">
+      <button (click)="salvar()" class="salvar">Salvar</button>
+      <button (click)="cancelar()" class="cancelar">Cancelar</button>
+    </div>
+  </div>
 </div>

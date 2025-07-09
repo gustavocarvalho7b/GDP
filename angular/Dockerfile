@@ -1,5 +1,6 @@
 FROM node:18 AS build
 WORKDIR /app
+ENV TZ=America/Sao_Paulo
 COPY package*.json ./
 RUN npm install
 COPY . .

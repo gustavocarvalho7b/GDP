@@ -4,6 +4,9 @@ FROM ruby:$RUBY_VERSION-slim AS base
 WORKDIR /rails
 
 ENV RAILS_ENV="development"
+ENV TZ=America/Sao_Paulo
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \

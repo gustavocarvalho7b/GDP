@@ -28,13 +28,14 @@
 .menu-opcoes {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 20px;
-  min-width: 120px;
+  gap: 4px;
+  padding: 8px;
+  min-width: 160px;
+  max-width: 160px;
 }
 
 .menu-opcoes p {
-  margin: 0;
+  margin: -4px;
   cursor: pointer;
   padding: 8px;
   transition: background 0.1s;

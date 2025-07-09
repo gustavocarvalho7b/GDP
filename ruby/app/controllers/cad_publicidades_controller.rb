@@ -25,7 +25,6 @@ class CadPublicidadesController < ApplicationController
   def create
     @cad_publicidade = CadPublicidade.new(cad_publicidade_params.except(:id_publicidade_estado))
 
-    # Associa os estados antes do save
     if params[:cad_publicidade][:id_publicidade_estado].present?
       estados = CadEstado.where(id: params[:cad_publicidade][:id_publicidade_estado])
       @cad_publicidade.cad_estados = estados

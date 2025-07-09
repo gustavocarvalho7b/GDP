@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Publicidade } from '../models/publicidade';
 import { EstadoService } from '../services/estado.service';
 import { Estados } from '../models/estados';
@@ -38,6 +38,7 @@ export class HomeComponent {
   }
 
   selecionarEstado(event: any) {
+    console.log(new Date().toString());
     this.estadoSelecionado = event.value;
     this.filtrarPublicidadesPorData();
     this.buscarPublicidades();
@@ -45,18 +46,24 @@ export class HomeComponent {
 
   filtrarPublicidadesPorData() {
     const hoje = new Date();
+    hoje.setHours(-24);
+
+    const fimDoDia = new Date(hoje);
+    fimDoDia.setHours(23, 59, 59, 999);
 
     this.publicidadesAtuais = this.todasPublicidades
       .filter((pub) => {
         const dtInicio = new Date(pub.dt_inicio);
         const dtFim = new Date(pub.dt_fim);
+
         const pertenceAoEstado =
           this.estadoSelecionado === 0 ||
           this.estadoSelecionado === null ||
           pub.cad_estados?.some(
             (estado) => estado.id === this.estadoSelecionado
           );
-        return dtInicio <= hoje && dtFim >= hoje && pertenceAoEstado;
+
+        return dtInicio <= fimDoDia && dtFim >= hoje && pertenceAoEstado;
       })
       .sort(
         (a, b) => new Date(a.dt_fim).getTime() - new Date(b.dt_fim).getTime()
@@ -71,7 +78,7 @@ export class HomeComponent {
           pub.cad_estados?.some(
             (estado) => estado.id === this.estadoSelecionado
           );
-        return dtInicio > hoje && pertenceAoEstado;
+        return dtInicio > fimDoDia && pertenceAoEstado;
       })
       .sort(
         (a, b) =>
