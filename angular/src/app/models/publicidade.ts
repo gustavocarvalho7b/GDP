@@ -11,4 +11,5 @@ export interface Publicidade {
   imagem_base64: string;
   id_publicidade_estado: number[];
   cad_estados?: Estados[];
+  padrao?: boolean;
 }

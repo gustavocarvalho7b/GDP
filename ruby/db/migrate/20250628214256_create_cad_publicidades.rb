@@ -9,6 +9,7 @@ class CreateCadPublicidades < ActiveRecord::Migration[8.0]
       t.date :dt_inicio
       t.date :dt_fim
       t.binary :imagem
+      t.boolean :padrao
 
       t.timestamps
     end

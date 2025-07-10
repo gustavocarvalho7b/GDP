@@ -63,4 +63,17 @@ class CadPublicidade < ApplicationRecord
       errors.add(:base, "A publicidade deve estar vinculada a pelo menos um estado.")
     end
   end
+
+  before_save :desmarcar_outras_publicidades_padrao, if: -> { padrao? }
+
+  def desmarcar_outras_publicidades_padrao
+    return if cad_estados.empty?
+
+    CadPublicidade
+      .joins(:cad_estados)
+      .where(cad_estados: { id: cad_estados.map(&:id) })
+      .where.not(id: id)
+      .where(padrao: true)
+      .update_all(padrao: false)
+  end
 end

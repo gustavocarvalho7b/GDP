@@ -21,6 +21,7 @@ export class HomeComponent {
   publicidadeEditando: Publicidade | null = null;
   publicidadesAtuais: Publicidade[] = [];
   publicidadesFuturas: Publicidade[] = [];
+  publicidadePadrao: Publicidade[] = [];
 
   constructor(
     private publicidadeService: PublicidadeService,
@@ -134,6 +135,31 @@ export class HomeComponent {
 
     this.publicidadesAtuais = filtrar(this.publicidadesAtuais);
     this.publicidadesFuturas = filtrar(this.publicidadesFuturas);
+  }
+
+  atualizarPadrao(publicidade: Publicidade) {
+    if (!publicidade.id) return;
+
+    this.publicidadeService
+      .atualizarPublicidade(publicidade.id, { padrao: publicidade.padrao })
+      .subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Atualizado',
+            detail: 'Publicidade marcada como padrão',
+            life: 3000,
+          });
+        },
+        error: (err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erro',
+            detail: 'Erro ao salvar alteração de padrão',
+            life: 3000,
+          });
+        },
+      });
   }
 
   carregarPublicidades() {

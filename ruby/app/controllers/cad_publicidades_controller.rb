@@ -70,7 +70,8 @@ class CadPublicidadesController < ApplicationController
   def cad_publicidade_params
     params.require(:cad_publicidade).permit(
       :titulo, :descricao, :botao_link,
-      :titulo_botao_link, :dt_inicio, :dt_fim, :imagem_base64,
+      :titulo_botao_link, :dt_inicio, :dt_fim,
+      :imagem_base64, :padrao,
       id_publicidade_estado: []
     )
   end

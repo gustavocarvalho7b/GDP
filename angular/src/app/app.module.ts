@@ -24,6 +24,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { CadastroEstadoComponent } from './cadastro-estado/cadastro-estado.component';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { CadastroEstadoComponent } from './cadastro-estado/cadastro-estado.compo
     InputTextareaModule,
     OverlayPanelModule,
     ToastModule,
+    InputSwitchModule
   ],
   providers: [RemoverCaracteresEspeciaisPipe, MessageService],
   bootstrap: [AppComponent],

@@ -130,13 +130,15 @@ publicidades = [
   }
 ]
 
+# Criação das publicidades
 publicidades.each do |attrs|
   estado_siglas = attrs.delete(:estados)
   nome_imagem = attrs.delete(:imagem)
 
   pub = CadPublicidade.new(
     **attrs,
-    imagem_base64: carregar_imagem(nome_imagem)
+    imagem_base64: carregar_imagem(nome_imagem),
+    padrao: false
   )
   pub.save(validate: false)
 
@@ -147,5 +149,3 @@ publicidades.each do |attrs|
     )
   end
 end
-
-puts "Seeds carregados com sucesso!"

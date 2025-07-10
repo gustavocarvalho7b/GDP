@@ -18,7 +18,7 @@ export class PublicidadeService {
     return this.http.post(`${this.url}`, payload);
   }
   atualizarPublicidade(id: number, publicidade: any) {
-    return this.http.put(`${this.url}/${id}`, publicidade);
+    return this.http.put(`${this.url}/${id}`, { cad_publicidade: publicidade });
   }
   excluirPublicidade(id: number): Observable<any> {
     return this.http.delete(`${this.url}/${id}`);

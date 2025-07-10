@@ -12,6 +12,7 @@ export class CardPublicidadeComponent {
 
   @Output() editar = new EventEmitter<Publicidade>();
   @Output() excluir = new EventEmitter<Publicidade>();
+  @Output() alterarPadrao = new EventEmitter<Publicidade>();  
 
   isAtual(): boolean {
     if (!this.publicidade.dt_inicio || !this.publicidade.dt_fim) return false;
@@ -27,6 +28,11 @@ export class CardPublicidadeComponent {
 
     return hojeStr >= dtInicioStr && hojeStr <= dtFimStr;
   }
+
+
+  emitirAlteracaoPadrao() {
+  this.alterarPadrao.emit(this.publicidade);
+ }
 
   emitirEditar() {
     this.editar.emit(this.publicidade);
