@@ -40,15 +40,17 @@ class CadPublicidadesController < ApplicationController
 
   # PATCH/PUT /cad_publicidades/1
   def update
-    if params[:cad_publicidade][:id_publicidade_estado].present?
-      estados = CadEstado.where(id: params[:cad_publicidade][:id_publicidade_estado])
-      @cad_publicidade.cad_estados = estados
-    else
-      @cad_publicidade.cad_estados.clear
+    if params[:cad_publicidade].key?(:id_publicidade_estado)
+      if params[:cad_publicidade][:id_publicidade_estado].present?
+        estados = CadEstado.where(id: params[:cad_publicidade][:id_publicidade_estado])
+        @cad_publicidade.cad_estados = estados
+      else
+        @cad_publicidade.cad_estados.clear
+      end
     end
 
     if @cad_publicidade.update(cad_publicidade_params.except(:id_publicidade_estado))
-      render json: @cad_publicidade.as_json(methods: [ :imagem_base64 ], except: [ :imagem ]), status: :ok
+      render json: @cad_publicidade.as_json(methods: [:imagem_base64], except: [:imagem]), status: :ok
     else
       Rails.logger.debug "Erros ao atualizar publicidade: #{@cad_publicidade.errors.full_messages}"
       render json: @cad_publicidade.errors.full_messages, status: :unprocessable_entity

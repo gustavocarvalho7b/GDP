@@ -14,7 +14,7 @@
       </div>
       <div class="direita">
         <span class="tagAtual" *ngIf="isAtual()">Publicidade atual</span>
-        <div class="publicidadePadrao">Publicidade padrão?</div>
+        <div class="publicidadePadrao">Publicidade padrão</div>
         <p-inputSwitch
           [(ngModel)]="publicidade.padrao"
           (onChange)="emitirAlteracaoPadrao()"

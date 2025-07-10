@@ -64,7 +64,9 @@ export class HomeComponent {
             (estado) => estado.id === this.estadoSelecionado
           );
 
-        return dtInicio <= fimDoDia && dtFim >= hoje && pertenceAoEstado;
+        const estaAtual = dtInicio <= fimDoDia && dtFim >= hoje;
+
+        return pertenceAoEstado && (estaAtual || pub.padrao === true);
       })
       .sort(
         (a, b) => new Date(a.dt_fim).getTime() - new Date(b.dt_fim).getTime()
@@ -79,7 +81,8 @@ export class HomeComponent {
           pub.cad_estados?.some(
             (estado) => estado.id === this.estadoSelecionado
           );
-        return dtInicio > fimDoDia && pertenceAoEstado;
+
+        return dtInicio > fimDoDia && pertenceAoEstado && !pub.padrao;
       })
       .sort(
         (a, b) =>
@@ -140,6 +143,8 @@ export class HomeComponent {
   atualizarPadrao(publicidade: Publicidade) {
     if (!publicidade.id) return;
 
+    const valorAntigo = !publicidade.padrao;
+
     this.publicidadeService
       .atualizarPublicidade(publicidade.id, { padrao: publicidade.padrao })
       .subscribe({
@@ -150,14 +155,18 @@ export class HomeComponent {
             detail: 'Publicidade marcada como padrão',
             life: 3000,
           });
+          this.carregarPublicidades();
         },
         error: (err) => {
+          publicidade.padrao = valorAntigo;
+
           this.messageService.add({
             severity: 'error',
             summary: 'Erro',
-            detail: 'Erro ao salvar alteração de padrão',
+            detail: 'Já existe uma publicidade padrão para esse estado!',
             life: 3000,
           });
+          this.carregarPublicidades();
         },
       });
   }

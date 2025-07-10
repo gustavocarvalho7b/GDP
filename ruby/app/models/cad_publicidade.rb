@@ -2,6 +2,7 @@ class CadPublicidade < ApplicationRecord
   has_many :cad_publicidade_estados, foreign_key: :id_publicidade, inverse_of: :cad_publicidade, dependent: :destroy
   has_many :cad_estados, through: :cad_publicidade_estados
 
+  validate :unica_publicidade_padrao_por_estado, if: :padrao?
   validate :deve_ter_pelo_menos_um_estado
   validate :verifica_conflito_de_datas
   validates :titulo, presence: { message: " obrigatório" }
@@ -75,5 +76,22 @@ class CadPublicidade < ApplicationRecord
       .where.not(id: id)
       .where(padrao: true)
       .update_all(padrao: false)
+  end
+  
+  def unica_publicidade_padrao_por_estado
+    return unless padrao?
+
+    estado_ids = cad_estados.pluck(:id)
+
+    conflito = CadPublicidade
+      .joins(:cad_publicidade_estados)
+      .where(padrao: true)
+      .where.not(id: id)
+      .where(cad_publicidade_estados: { id_estado: estado_ids })
+      .exists?
+
+    if conflito
+      errors.add(:padrao, "já existe uma publicidade padrão para um dos estados selecionados")
+    end
   end
 end
